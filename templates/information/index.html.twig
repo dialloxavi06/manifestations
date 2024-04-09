@@ -1,0 +1,80 @@
+
+{% block title %}Modalités de la demande / Antragsformalitäten{% endblock %}
+{% block stylesheets %}
+ <style>
+        .container {
+            display: flex;
+            justify-content: space-between;
+            padding: 30px;
+        }
+        .information {
+            width: 48%;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+    </style>
+    
+{% endblock %}
+
+{% block body %}
+<div class="container">
+
+<!-- Partie en français -->
+<div class="information">
+    <h2>Modalités de la demande</h2>
+
+    <p>Les dates limites de dépôt des demandes de soutien sont les suivantes : 15/03, 15/06 et 15/10.</p>
+
+    <p>La durée de l’évaluation est en principe de 4 mois à compter de la date limite de dépôt. L’UFA ne soutient pas les manifestations prévues pour se tenir avant la fin de ce délai de 4 mois.</p>
+
+    <p>Le dossier de demande de soutien doit être transmis par voie électronique à l’adresse mail suivante : manifestations-veranstaltungen@dfh-ufa.org</p>
+
+    <p>Les demandes enregistrées par voie électronique après la date limite de dépôt des demandes de soutien seront exclues de la procédure.</p>
+
+    <p>Les parties 1, 2 et 3 ainsi que leurs annexes doivent être envoyées par voie électronique au plus tard à la date limite de dépôt (la taille du dossier ne doit pas dépasser 8 Mo)</p>
+
+    <p>La partie 4 comportant les signatures doit être scannée et envoyée séparément également par voie électronique (au plus tard 2 semaines après la date limite de dépôt).</p>
+
+    <p>La demande devra être signée par la direction ou la présidence de l’institution formulant la demande ou par une personne habilitée à signer au cas où la direction ou la présidence doive se faire représenter.</p>
+
+    <p>La demande devra être transmise dans les deux langues française et allemande. Dans des cas d’exception, la demande sera acceptée en anglais si elle est également traduite dans l’une des deux langues de travail de l’UFA.</p>
+
+    <p>Il n’y a pas de droit acquis au soutien financier de l’UFA. Les recours auprès des tribunaux sont exclus.</p>
+</div>
+
+<!-- Partie en allemand -->
+<div class="information">
+    <h2>Antragsformalitäten</h2>
+
+    <p>Die Antragsfristen sind: 15.03., 15.06. und 15.10.</p>
+
+    <p>Die Begutachtung dauert in der Regel 4 Monate ab Antragfrist. Die DFH fördert keine Veranstaltung, die vor Ablauf dieses viermonatigen Zeitraums stattfinden soll.</p>
+
+    <p>Der Antrag ist per E-Mail an folgende Adresse einzureichen: manifestations-veranstaltungen@dfh-ufa.org</p>
+
+    <p>Verspätet eingegangene Anträge werden vom weiteren Verfahren ausgeschlossen.</p>
+
+    <p>Die Teile 1, 2 und 3 sowie die dazugehörigen Anlagen sind spätestens bis zur Antragsfrist elektronisch bei der DFH einzureichen (maximal zulässige Dateigröße: 8 MB).</p>
+
+    <p>Teil 4 mit den Unterschriften muss eingescannt, separat und ebenfalls elektronisch eingereicht werden (bis spätestens zwei Wochen nach Antragsfrist).</p>
+
+    <p>Der Antrag muss von der Leitung der antragstellenden Institution bzw. einer unterschriftsberechtigten Person im Falle einer Vertretung der Leitung unterschrieben werden.</p>
+
+    <p>Der Antrag wird zweisprachig (Deutsch und Französisch) eingereicht; in Sonderfällen wird der Antrag auf Englisch akzeptiert, sofern der DFH eine Übersetzung in eine der beiden Arbeitssprachen vorgelegt wird.</p>
+
+    <p>Es besteht kein Anspruch auf Förderung durch die DFH. Der Rechtsweg ist ausgeschlossen.</p>
+</div>
+
+
+</div>
+ <!-- Boutons -->
+    <div class="row mt-4">
+        <div class="col text-center">
+        <p class="text-center text-muted mt-5 mb-0"><a href="{{path('app_login')}}" class="fw-bold text-body"><u>Commencer/anfangen</u></a></p>
+        <p class="text-center text-muted mt-5 mb-0">Pour tous renseignements complémentaires/ Bei Rückfragen <a href="{{path('contact')}}" class="fw-bold text-body"><u>ici/hier</u></a></p>
+        </div>
+    </div>
+
+
+{% endblock %} 

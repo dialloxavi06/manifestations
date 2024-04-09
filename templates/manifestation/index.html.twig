@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Manifestation index{% endblock %}
+
+
+
+
+{% block javascripts %}
+    <script src="{{ asset('js/manifestation.js') }}"></script>
+{% endblock %}
+
+
+{% block body %}
+    <h1>Liste des Manifestations</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Debut</th>
+                <th>Fin</th>
+                <th>Durée</th>
+                <th>Justification de la durée</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for manifestation in manifestations %}
+            <tr>
+                <td>{{ manifestation.id }}</td>
+                <td>{{ manifestation.titre }}</td>
+                <td>{{ manifestation.dateDebut ? manifestation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ manifestation.dateFin ? manifestation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ manifestation.duree }}</td>
+                <td>{{ manifestation.justificationDuree }}</td>
+                <td>
+                    <a href="{{ path('app_manifestation_show', {'id': manifestation.id}) }}">voir</a>
+                    <a href="{{ path('app_manifestation_edit', {'id': manifestation.id}) }}">modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Aucun Item Trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    
+<a class="btn btn-primary nouvelle-manifestation" id="nouvelle-manifestation" href="{{ path('app_manifestation_new') }}">Nouvelle Manifestation</a>
+
+
+{% endblock %}

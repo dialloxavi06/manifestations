@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nous Contacter{% endblock %}
+
+{% block body %}
+<div class="container mt-4">
+   
+    {{ form_start(form) }}
+     <h1 class="text-center mb-5">Nous Contacter / Kontaktieren sie uns</h1>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-md-6 mx-auto">
+            {{ form_row(form.email) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            {{ form_row(form.subject) }}
+        </div>
+        <div class="col-md-6 mx-auto">
+            {{ form_row(form.service) }}
+        </div>
+    </div>
+    <div class="row">
+    <div class="col-md-12 mx-auto">
+        {{ form_row(form.message, {'attr': {'class': 'form-control', 'style': 'min-height: 150px;' }}) }}
+    </div>
+</div>
+
+    <div class="row">
+        <div class="col-md-12 mx-auto">
+            {{ form_rest(form) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+</div>
+{% endblock %}

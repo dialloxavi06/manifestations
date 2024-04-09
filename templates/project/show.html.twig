@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{project.titre}}{% endblock %}
+
+{% block body %}
+
+<h1>{{project.numDossier}}</h1>
+<h2>{{project.titre}}</h2>
+<p>{{project.description  |nl2br}}</p>
+
+ <p> Créer une manifestation pour ce projet<a href="{{ path('app_manifestation_index') }}"> ici</a> </p>
+
+
+{% endblock %}
+ 
