@@ -3,11 +3,17 @@
 namespace App\Entity;
 
 use App\Repository\ManifestationRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Translatable\Translatable;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+
 
 #[ORM\Entity(repositoryClass: ManifestationRepository::class)]
-class Manifestation
+class Manifestation implements Translatable
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -15,6 +21,10 @@ class Manifestation
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    /**
+     * This annotation is used to mark the entity as translatable using Gedmo Translatable.
+     */
+    #[Gedmo\Translatable]
     private ?string $titre = null;
 
     #[ORM\Column]
@@ -41,11 +51,14 @@ class Manifestation
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $justification_pays_tiers = null;
 
-    #[ORM\ManyToOne(inversedBy: 'manifestations')]
-    private ?Ville $ville = null;
+    #[ORM\ManyToMany(targetEntity: Ville::class, inversedBy: 'manifestations')]
+    private Collection $ville;
+
 
     public function __construct()
-    {    }
+    {
+        $this->ville = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -151,19 +164,6 @@ class Manifestation
     }
 
 
-public function getVille(): ?Ville
-{
-    return $this->ville;
-}
-
-public function setVille(?Ville $ville): static
-{
-    $this->ville = $ville;
-
-    return $this;
-
-}
-
 public function getPays(): ?string
 {
     return $this->pays; 
@@ -172,6 +172,30 @@ public function getPays(): ?string
 public function setPays(?Pays $pays): static
 {
     $this->pays = $pays;
+
+    return $this;
+}
+
+/**
+ * @return Collection<int, Ville>
+ */
+public function getVille(): Collection
+{
+    return $this->ville;
+}
+
+public function addVille(Ville $ville): static
+{
+    if (!$this->ville->contains($ville)) {
+        $this->ville->add($ville);
+    }
+
+    return $this;
+}
+
+public function removeVille(Ville $ville): static
+{
+    $this->ville->removeElement($ville);
 
     return $this;
 }

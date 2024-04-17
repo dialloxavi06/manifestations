@@ -36,8 +36,16 @@ background: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244
         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
           <div class="card" style="border-radius: 15px;">
             <div class="card-body p-5">
-              <h2 class="text-uppercase text-center mb-5">Create an account</h2>
-
+            {% set locale = app.request.locale %}
+          <h2 class="text-uppercase text-center mb-5">
+              {% if locale == 'de' %}
+                  {{ 'Create an account' | trans({}, 'messages', 'de') }}
+              {% elseif locale == 'fr' %}
+                  {{ 'Create an account' | trans({}, 'messages', 'fr') }}
+              {% else %}
+                  {{ 'Create an account' }}
+              {% endif %}
+          </h2>
               {{ form_start(registrationForm) }}
 
               <div class="form-outline mb-4">

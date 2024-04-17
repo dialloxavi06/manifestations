@@ -11,18 +11,18 @@
 
 
 {% block body %}
-    <h1>Liste des Manifestations</h1>
+    <h1> {{ '__Liste des Manifestations' |trans}}</h1> 
 
     <table class="table">
         <thead>
-            <tr>
+            <tr> 
                 <th>Id</th>
-                <th>Titre</th>
-                <th>Debut</th>
-                <th>Fin</th>
-                <th>Durée</th>
-                <th>Justification de la durée</th>
-                <th>actions</th>
+                <th> {{ '_Titre' |trans}}</th>
+                <th> {{ 'Debut' |trans}}</th>
+                <th> {{ 'Fin' |trans}}</th>
+                <th> {{ 'Durée' |trans}}</th>
+                <th> {{ 'Justification de la durée' |trans}}</th>
+                <th> {{ 'actions' |trans}}</th>
             </tr>
         </thead>
         <tbody>
@@ -41,7 +41,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">Aucun Item Trouvé</td>
+                <td colspan="7"> {{ 'Aucun Item Trouvé' |trans}}</td>
             </tr>
         {% endfor %}
         </tbody>

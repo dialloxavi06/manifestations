@@ -21,15 +21,20 @@ class Ville
     #[ORM\Column]
     private ?string $code = null;
 
-    #[ORM\OneToMany(targetEntity: Manifestation::class, mappedBy: 'ville')]
-    private Collection $manifestations;
+  
 
     #[ORM\ManyToOne(inversedBy: 'villes')]
     private ?Pays $pays = null;
 
+    #[ORM\ManyToMany(targetEntity: Manifestation::class, mappedBy: 'ville')]
+    private Collection $manifestations;
+
     public function __construct()
-    {        $this->manifestations = new ArrayCollection();
+    {
+        $this->manifestations = new ArrayCollection();
     }
+
+
 
     public function getId(): ?int
     {
@@ -62,6 +67,19 @@ class Ville
 
   
 
+
+    public function getPays(): ?Pays
+    {
+        return $this->pays;
+    }
+
+    public function setPays(?Pays $pays): static
+    {
+        $this->pays = $pays;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Manifestation>
      */
@@ -74,7 +92,7 @@ class Ville
     {
         if (!$this->manifestations->contains($manifestation)) {
             $this->manifestations->add($manifestation);
-            $manifestation->setVille($this);
+            $manifestation->addVille($this);
         }
 
         return $this;
@@ -83,24 +101,14 @@ class Ville
     public function removeManifestation(Manifestation $manifestation): static
     {
         if ($this->manifestations->removeElement($manifestation)) {
-            // set the owning side to null (unless already changed)
-            if ($manifestation->getVille() === $this) {
-                $manifestation->setVille(null);
-            }
+            $manifestation->removeVille($this);
         }
 
         return $this;
     }
 
-    public function getPays(): ?Pays
+    public function __toString(): string
     {
-        return $this->pays;
-    }
-
-    public function setPays(?Pays $pays): static
-    {
-        $this->pays = $pays;
-
-        return $this;
+        return $this->nom;
     }
 }

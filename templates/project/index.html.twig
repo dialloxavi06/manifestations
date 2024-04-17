@@ -17,8 +17,8 @@
             <tbody>
                 {% for project in projects %}
                 <tr>
-                    <td>{{ project.numDossier }}</td>
-                    <td>{{ project.titre }}</td>
+                    <td>{{ project.numDossier  |trans }}</td>
+                    <td>{{ project.titre |trans }}</td>
                     <td>{{ project.description }}</td>
                     {# This code block represents a table cell in the index.html.twig template file. It contains a link to edit a project and a form to delete a project. #}
                 
