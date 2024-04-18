@@ -3,12 +3,13 @@
 namespace App\Form;
 
 use App\Entity\Project;
-use PHPUnit\TextUI\XmlConfiguration\CodeCoverage\Report\Text;
+use Doctrine\Common\Annotations\Annotation\Enum;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use App\Enum\StatutProjet;
 
 class ProjectType extends AbstractType
 {
@@ -17,9 +18,11 @@ class ProjectType extends AbstractType
         $builder
             ->add('num_dossier')
             ->add('titre')
-            ->add('description', TextareaType::class, [
-                'label' => 'Description',
+            ->add('statut', EnumType::class, [
+                'class' => StatutProjet::class,
+                'label' => 'Statut du projet',
             ])
+            ->add('createdAt')
             ->add('submit', SubmitType::class, [
                 'label' => 'Créer',
                 'attr' => [

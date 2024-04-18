@@ -18,7 +18,7 @@ final class UserLocaleListener
 
     }
 
-    #[AsEventListener(event: KernelEvents::REQUEST)]
+    #[AsEventListener(event: KernelEvents::REQUEST, priority: 15)]
     public function onKernelRequest(RequestEvent $event): void
     {
         $user = $this->security->getUser();

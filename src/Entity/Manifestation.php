@@ -7,13 +7,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Translatable\Translatable;
 use Gedmo\Mapping\Annotation as Gedmo;
 
 
 
+
 #[ORM\Entity(repositoryClass: ManifestationRepository::class)]
-class Manifestation implements Translatable
+class Manifestation
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -37,6 +37,7 @@ class Manifestation implements Translatable
     private ?string $duree = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Gedmo\Translatable]
     private ?string $justification_duree = null; 
 
     #[ORM\ManyToOne(inversedBy: 'manifestations')]

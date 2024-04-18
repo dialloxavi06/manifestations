@@ -10,7 +10,9 @@
                 <tr>
                     <th>Numéro Dossier</th>
                     <th>Titre</th>
-                    <th>Description</th>
+                    <th>Date de création</th>
+                    <th>Statut du projet</th>
+                    <th>Type de projet</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -19,7 +21,7 @@
                 <tr>
                     <td>{{ project.numDossier  |trans }}</td>
                     <td>{{ project.titre |trans }}</td>
-                    <td>{{ project.description }}</td>
+                    <td>{{ project.dateCreation |date('d/m/Y') }}</td>
                     {# This code block represents a table cell in the index.html.twig template file. It contains a link to edit a project and a form to delete a project. #}
                 
                     <td>

@@ -3,6 +3,7 @@
 namespace App\Security;
 
 use App\Repository\UtilisateurRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -23,15 +24,27 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
 
     public const LOGIN_ROUTE = 'app_login';
 
-    public function __construct(private UrlGeneratorInterface $urlGenerator, private UtilisateurRepository $utilisateurRepository)
-    {
-    }
+    public function __construct(
+        private UrlGeneratorInterface $urlGenerator, 
+        private UtilisateurRepository $utilisateurRepository,
+        private EntityManagerInterface $entityManager)
+    {}
 
     public function authenticate(Request $request): Passport
     {
         $username = $request->getPayload()->getString('username');
+        $langueChoisie = $request->get('langue'); // Récupérer la langue choisie depuis la requête
 
         $request->getSession()->set(SecurityRequestAttributes::LAST_USERNAME, $username);
+
+          // Mettre à jour la langue de l'utilisateur si une langue est choisie lors de la connexion
+        if ($langueChoisie) {
+            $utilisateur = $this->utilisateurRepository->findUtilisateurByEmail($username);
+            if ($utilisateur) {
+                $utilisateur->setLocale($langueChoisie);
+                $this->entityManager->flush();
+            }
+        }
 
         return new Passport(
             new UserBadge($username, fn ($identifier) => $this->utilisateurRepository->findUtilisateurByEmail($identifier)),
@@ -50,7 +63,7 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
         }
 
         // For example:
-     return new RedirectResponse($this->urlGenerator->generate('app_project'));
+     return new RedirectResponse($this->urlGenerator->generate('app_manifestation_index'));
         
     }
 
