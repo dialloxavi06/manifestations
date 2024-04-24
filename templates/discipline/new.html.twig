@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Nouvelle Discipline
+{% endblock %}
+
+{% block body %}
+    <h1>Créer une nouvelle Discipline</h1>
+   
+    {{ form_start(form) }}
+    <button type="submit" class="btn btn-primary">{{ 'Ajouter' }}</button>
+    {{ form_end(form) }}
+{% endblock %}

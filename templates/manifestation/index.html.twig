@@ -8,30 +8,37 @@
 {% block javascripts %}
     <script src="{{ asset('js/manifestation.js') }}"></script>
 {% endblock %}
-
+{% block navbar %}
+{% include('partials/nav.html.twig') %}
+{% endblock %}
 
 {% block body %}
+<a class="btn btn-primary nouvelle-manifestation" id="nouvelle-manifestation" href="{{ path('app_manifestation_new') }}">Nouvelle Manifestation</a>
+
+
     <h1> {{ '__Liste des Manifestations' |trans}}</h1> 
 
     <table class="table">
         <thead>
             <tr> 
-                <th>Id</th>
-                <th> {{ '_Titre' |trans}}</th>
+                <th>{{ 'Titre Francais' |trans}}</th>
+                <th> {{ 'Titre Allemand' |trans}}</th>
+                <th> {{ 'Titre Anglais' |trans}}</th>
                 <th> {{ 'Debut' |trans}}</th>
                 <th> {{ 'Fin' |trans}}</th>
                 <th> {{ 'Durée' |trans}}</th>
                 <th> {{ 'Justification de la durée' |trans}}</th>
                 <th> {{ 'actions' |trans}}</th>
             </tr>
-        </thead>
-        <tbody>
+        </thead> 
+        <tbody> 
         {% for manifestation in manifestations %}
             <tr>
-                <td>{{ manifestation.id }}</td>
-                <td>{{ manifestation.titre }}</td>
-                <td>{{ manifestation.dateDebut ? manifestation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ manifestation.dateFin ? manifestation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ manifestation.titreFr }}</td>
+                <td>{{ manifestation.titreDe }}</td>
+                <td>{{ manifestation.titreEn }}</td>
+                <td>{{ manifestation.dateDebut ? manifestation.dateDebut|date('Y-m-d') : '' }}</td>
+                <td>{{ manifestation.dateFin ? manifestation.dateFin|date('Y-m-d') : '' }}</td>
                 <td>{{ manifestation.duree }}</td>
                 <td>{{ manifestation.justificationDuree }}</td>
                 <td>
@@ -48,7 +55,7 @@
     </table>
 
     
-<a class="btn btn-primary nouvelle-manifestation" id="nouvelle-manifestation" href="{{ path('app_manifestation_new') }}">Nouvelle Manifestation</a>
+
 
 
 {% endblock %}

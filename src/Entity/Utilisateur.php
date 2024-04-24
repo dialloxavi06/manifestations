@@ -39,8 +39,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-    #[ORM\Column(length: 10, nullable: true, options: ['default' => 'fr'])]
-    private ?string $locale = null;
+  
 
     public function getId(): ?int
     {
@@ -141,15 +140,5 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getLocale(): ?string
-    {
-        return $this->locale;
-    }
-
-    public function setLocale(?string $locale): static
-    {
-        $this->locale = $locale;
-
-        return $this;
-    }
+  
 }

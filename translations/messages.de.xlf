@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="de" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="nNJr7k1" resname="Your Name">
+        <source>Your Name</source>
+        <target>Ihr Name</target>
+      </trans-unit>
+      <trans-unit id="IWej4Er" resname="Your Email">
+        <source>Your Email</source>
+        <target>Ihre E-Mail-Adresse</target>
+      </trans-unit>
+      <trans-unit id="egV72Za" resname="Your message">
+        <source>Your message</source>
+        <target>Ihre Nachricht</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>Senden</target>
+      </trans-unit>
+      <trans-unit id="Lk.Mu6b" resname="Thank you for your message">
+        <source>Thank you for your message</source>
+        <target>Vielen Dank für Ihre Nachricht</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Passwort</target>
+      </trans-unit>
+      <trans-unit id="c1prjRW" resname="Agree terms">
+        <source>Agree terms</source>
+        <target>Bedingungen akzeptieren</target>
+      </trans-unit>
+      <trans-unit id="ninXyIz" resname="CREATE AN ACCOUNT">
+        <source>CREATE AN ACCOUNT</source>
+        <target>KONTO ERSTELLEN</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target>anzeigen</target>
+      </trans-unit>
+      <trans-unit id="rCCle.3" resname="Hide">
+        <source>Hide</source>
+        <target>verbergen</target>
+      </trans-unit>
+      <trans-unit id="hgM.daT" resname="Create an account">
+        <source>Create an account</source>
+        <target>Konto erstellen</target>
+      </trans-unit>
+      <trans-unit id="26IEhpa" resname="__Liste des Manifestations">
+        <source>__Liste des Manifestations</source>
+        <target>Liste der Manifestationen</target>
+      </trans-unit>
+      <trans-unit id="vguEhOI" resname="_Titre">
+        <source>_Titre</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="Vmp9mG7" resname="Debut">
+        <source>Debut</source>
+        <target>Beginn</target>
+      </trans-unit>
+      <trans-unit id="Wir2Aee" resname="Fin">
+        <source>Fin</source>
+        <target>Ende</target>
+      </trans-unit>
+      <trans-unit id="cdC61Cr" resname="Durée">
+        <source>Durée</source>
+        <target>Dauer</target>
+      </trans-unit>
+      <trans-unit id="ydwDeri" resname="Justification de la durée">
+        <source>Justification de la durée</source>
+        <target>Dauerbegründung</target>
+      </trans-unit>
+      <trans-unit id="EhVukhv" resname="Id">
+        <source>Id</source>
+        <target>Id</target>
+      </trans-unit>
+      <trans-unit id="Kw3N1AA" resname="actions">
+        <source>actions</source>
+        <target>Aktionen</target>
+      </trans-unit>
+      <trans-unit id="yJcAd8m" resname="Aucun Item Trouvé">
+        <source>Aucun Item Trouvé</source>
+        <target>Kein Element gefunden</target>
+      </trans-unit>
+      <trans-unit id="U4QFWAI" resname="l'histoire contemporaine">
+        <source>l'histoire contemporaine</source>
+        <target>Zeitgeschichte</target>
+      </trans-unit>
+      <trans-unit id="6MUQREp" resname="l'histoire de l'art">
+        <source>l'histoire de l'art</source>
+        <target>Kunstgeschichte</target>
+      </trans-unit>
+      <trans-unit id="f0TZ8ei" resname="l'histoire des sciences">
+        <source>l'histoire des sciences</source>
+        <target>Wissenschaftsgeschichte</target>
+      </trans-unit>
+      <trans-unit id="VXDXpW3" resname="l'histoire des techniques">
+        <source>l'histoire des techniques</source>
+        <target>Technikgeschichte</target>
+      </trans-unit>
+      <trans-unit id="QHpy4Jg" resname="l'histoire économique">
+        <source>l'histoire économique</source>
+        <target>Wirtschaftsgeschichte</target>
+      </trans-unit>
+      <trans-unit id="O9dymw5" resname="l'histoire sociale">
+        <source>l'histoire sociale</source>
+        <target>Sozialgeschichte</target>
+      </trans-unit>
+      <trans-unit id="lKe3QnB" resname="Numéro Dossier">
+        <source>Numéro Dossier</source>
+        <target>Aktenzeichen</target>
+      </trans-unit>
+      <trans-unit id="eOeSABC" resname="Titre">
+        <source>Titre</source>
+        <target>Titel</target>
+      </trans-unit>
+      <trans-unit id="VAH_Z9P" resname="Date de création">
+        <source>Date de création</source>
+        <target>Erstellungsdatum</target>
+      </trans-unit>
+      <trans-unit id="h3x2hvh" resname="Statut du projet">
+        <source>Statut du projet</source>
+        <target>Projektstatus</target>
+      </trans-unit>
+      <trans-unit id="tO38wIk" resname="Type de projet">
+        <source>Type de projet</source>
+        <target>Projekttyp</target>
+      </trans-unit>
+      <trans-unit id="hDqsANG" resname="nouveau Projet">
+        <source>nouveau Projet</source>
+        <target>neues Projekt</target>
+      </trans-unit>
+      <trans-unit id=".4BZ3Gd" resname="Actions">
+        <source>Actions</source>
+        <target>Aktionen</target>
+      </trans-unit>
+      <trans-unit id="10Yi6cO" resname="Logged in as">
+        <source>Logged in as</source>
+        <target>Angemeldet als</target>
+      </trans-unit>
+      <trans-unit id="nEZhmfj" resname="Projet">
+        <source>Projet</source>
+        <target>Projekt</target>
+      </trans-unit>
+      <trans-unit id="j.BCCkt" resname="Manifestation">
+        <source>Manifestation</source>
+        <target>Manifestation</target>
+      </trans-unit>
+      <trans-unit id="uq3fcPt" resname="Type">
+        <source>Type</source>
+        <target>Typ</target>
+      </trans-unit>
+      <trans-unit id="mARyQy_" resname="Date de début">
+        <source>Date de début</source>
+        <target>Startdatum</target>
+      </trans-unit>
+      <trans-unit id="sTSqvuA" resname="Date de fin">
+        <source>Date de fin</source>
+        <target>Enddatum</target>
+      </trans-unit>
+      <trans-unit id="Um4Ah8w" resname="Description">
+        <source>Description</source>
+        <target>Beschreibung</target>
+      </trans-unit>
+      <trans-unit id="Sd0BHdh" resname="Lieu">
+        <source>Lieu</source>
+        <target>Ort</target>
+      </trans-unit>
+      <trans-unit id="_oued2I" resname="Organisateur">
+        <source>Organisateur</source>
+        <target>Organisator</target>
+      </trans-unit>
+      <trans-unit id=".nU._5u" resname="Pays">
+        <source>Pays</source>
+        <target>Land</target>
+      </trans-unit>
+      <trans-unit id="Dr0lo0H" resname="Ville">
+        <source>Ville</source>
+        <target>Stadt</target>
+      </trans-unit>
+      <trans-unit id="FzyZjCv" resname="Sélectionner le pays">
+        <source>Sélectionner le pays</source>
+        <target>Land auswählen</target>
+      </trans-unit>
+      <trans-unit id="qqf1UJO" resname="Justification pays tiers">
+        <source>Justification pays tiers</source>
+        <target>Begründung für Drittländer</target>
+      </trans-unit>
+      <trans-unit id="dXQvtU1" resname="Mannifestation Scientifique">
+        <source>Mannifestation Scientifique</source>
+        <target>Wissenschaftliche Veranstaltung</target>
+      </trans-unit>
+      <trans-unit id="JEIQ5IQ" resname="project">
+        <source>project</source>
+        <target>projekt</target>
+      </trans-unit>
+      <trans-unit id="K8WdXUm" resname="manifestation">
+        <source>manifestation</source>
+        <target>Veranstaltung</target>
+      </trans-unit>
+      <trans-unit id="h3gPpd5" resname="register">
+        <source>register</source>
+        <target>registrieren</target>
+      </trans-unit>
+      <trans-unit id="QoghNQ6" resname="login">
+        <source>login</source>
+        <target>anmelden </target>
+      </trans-unit>
+      <trans-unit id="ACcM9j_" resname="logout">
+        <source>logout</source>
+        <target>abmelden</target>
+      </trans-unit>
+      <trans-unit id="QuN2BLY" resname="Modifier">
+        <source>Modifier</source>
+        <target>__Modifier</target>
+      </trans-unit>
+      <trans-unit id="QLeNDdM" resname="Retour à la liste">
+        <source>Retour à la liste</source>
+        <target>__Retour à la liste</target>
+      </trans-unit>
+      <trans-unit id="rCTIJV3" resname="Titre francais">
+        <source>Titre francais</source>
+        <target>__Titre francais</target>
+      </trans-unit>
+      <trans-unit id="c8BMBva" resname="Titre Allemand">
+        <source>Titre Allemand</source>
+        <target>__Titre Allemand</target>
+      </trans-unit>
+      <trans-unit id="4tQxzSK" resname="Titre Anglais">
+        <source>Titre Anglais</source>
+        <target>__Titre Anglais</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

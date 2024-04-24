@@ -7,7 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Project>
+ * @extends ServiceEntityRepository<Project> 
  *
  * @method Project|null find($id, $lockMode = null, $lockVersion = null)
  * @method Project|null findOneBy(array $criteria, array $orderBy = null)
@@ -44,5 +44,24 @@ class ProjectRepository extends ServiceEntityRepository
     //            ->getQuery()
     //            ->getOneOrNullResult()
     //        ;
-    //    }
+    //  
+    
+     /**
+     * Récupère le contenu traduit d'un champ pour une langue donnée.
+     *
+     * @param int    $id   L'ID de l'entité Project
+     * @param string $field Le champ à traduire
+     * @param string $locale La langue pour laquelle récupérer la traduction
+     * 
+     * @return string|null Le contenu traduit du champ, null si non trouvé
+     */
+    public function findAllOrderedByIdAsc()
+    {
+        return $this->createQueryBuilder('et')
+            ->orderBy('et.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+  
 }

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="fr" target-language="fr" datatype="plaintext" original="file.ext">
+    <header>
+      <tool tool-id="symfony" tool-name="Symfony"/>
+    </header>
+    <body>
+      <trans-unit id="nNJr7k1" resname="Your Name">
+        <source>Your Name</source>
+        <target>Votre nom</target>
+      </trans-unit>
+      <trans-unit id="IWej4Er" resname="Your Email">
+        <source>Your Email</source>
+        <target>Votre adresse email</target>
+      </trans-unit>
+      <trans-unit id="tb5dTqr" resname="Your Message">
+        <source>Your Message</source>
+        <target>Votre message</target>
+      </trans-unit>
+      <trans-unit id="9vRoj.I" resname="Send">
+        <source>Send</source>
+        <target>Envoyer</target>
+      </trans-unit>
+      <trans-unit id="Lk.Mu6b" resname="Thank you for your message">
+        <source>Thank you for your message</source>
+        <target>Merci pour votre message</target>
+      </trans-unit>
+      <trans-unit id="588_9PF" resname="Password">
+        <source>Password</source>
+        <target>Mot de passe</target>
+      </trans-unit>
+      <trans-unit id="c1prjRW" resname="Agree terms">
+        <source>Agree terms</source>
+        <target>Accepter les conditions</target>
+      </trans-unit>
+      <trans-unit id="ninXyIz" resname="CREATE AN ACCOUNT">
+        <source>CREATE AN ACCOUNT</source>
+        <target>CRÉER UN COMPTE</target>
+      </trans-unit>
+      <trans-unit id="DfbxytN" resname="Show">
+        <source>Show</source>
+        <target>afficher</target>
+      </trans-unit>
+      <trans-unit id="rCCle.3" resname="Hide">
+        <source>Hide</source>
+        <target>cacher</target>
+      </trans-unit>
+      <trans-unit id="hgM.daT" resname="Create an account">
+        <source>Create an account</source>
+        <target>Créer un compte</target>
+      </trans-unit>
+      <trans-unit id="7_akscK" resname="List of manifestations">
+        <source>List of manifestations</source>
+        <target>Liste des manifestations</target>
+      </trans-unit>
+      <trans-unit id="vguEhOI" resname="_Titre">
+        <source>_Titre</source>
+        <target>Titre</target>
+      </trans-unit>
+      <trans-unit id="26IEhpa" resname="__Liste des Manifestations">
+        <source>__Liste des Manifestations</source>
+        <target>Liste des Manifestations</target>
+      </trans-unit>
+      <trans-unit id="dXQvtU1" resname="Mannifestation Scientifique">
+        <source>Mannifestation Scientifique</source>
+        <target>Mannifestation Scientifique</target>
+      </trans-unit>
+      <trans-unit id="JEIQ5IQ" resname="project">
+        <source>project</source>
+        <target>projet</target>
+      </trans-unit>
+      <trans-unit id="K8WdXUm" resname="manifestation">
+        <source>manifestation</source>
+        <target>manifestation</target>
+      </trans-unit>
+      <trans-unit id="h3gPpd5" resname="register">
+        <source>register</source>
+        <target>Enregistrer</target>
+      </trans-unit>
+      <trans-unit id="QoghNQ6" resname="login">
+        <source>login</source>
+        <target>Connecter</target>
+      </trans-unit>
+      <trans-unit id="ACcM9j_" resname="logout">
+        <source>logout</source>
+        <target>Déconnecter</target>
+      </trans-unit>
+      <trans-unit id="Vmp9mG7" resname="Debut">
+        <source>Debut</source>
+        <target>Début</target>
+      </trans-unit>
+      <trans-unit id="Wir2Aee" resname="Fin">
+        <source>Fin</source>
+        <target>Fin</target>
+      </trans-unit>
+      <trans-unit id="cdC61Cr" resname="Durée">
+        <source>Durée</source>
+        <target>Durée</target>
+      </trans-unit>
+      <trans-unit id="ydwDeri" resname="Justification de la durée">
+        <source>Justification de la durée</source>
+        <target>Justification de la durée</target>
+      </trans-unit>
+      <trans-unit id="Kw3N1AA" resname="actions">
+        <source>actions</source>
+        <target>actions</target>
+      </trans-unit>
+      <trans-unit id="yJcAd8m" resname="Aucun Item Trouvé">
+        <source>Aucun Item Trouvé</source>
+        <target>Aucun Élement Trouvé</target>
+      </trans-unit>
+      <trans-unit id="10Yi6cO" resname="Logged in as">
+        <source>Logged in as</source>
+        <target>__Logged in as</target>
+      </trans-unit>
+      <trans-unit id="QuN2BLY" resname="Modifier">
+        <source>Modifier</source>
+        <target>Modifier</target>
+      </trans-unit>
+      <trans-unit id="QLeNDdM" resname="Retour à la liste">
+        <source>Retour à la liste</source>
+        <target>Retour à la liste</target>
+      </trans-unit>
+      <trans-unit id="hDqsANG" resname="nouveau Projet">
+        <source>nouveau Projet</source>
+        <target>nouveau Projet</target>
+      </trans-unit>
+      <trans-unit id="lKe3QnB" resname="Numéro Dossier">
+        <source>Numéro Dossier</source>
+        <target>Numéro Dossier</target>
+      </trans-unit>
+      <trans-unit id="rCTIJV3" resname="Titre francais">
+        <source>Titre francais</source>
+        <target>Titre francais</target>
+      </trans-unit>
+      <trans-unit id="c8BMBva" resname="Titre Allemand">
+        <source>Titre Allemand</source>
+        <target>Titre Allemand</target>
+      </trans-unit>
+      <trans-unit id="4tQxzSK" resname="Titre Anglais">
+        <source>Titre Anglais</source>
+        <target>Titre Anglais</target>
+      </trans-unit>
+      <trans-unit id="VAH_Z9P" resname="Date de création">
+        <source>Date de création</source>
+        <target>Date de création</target>
+      </trans-unit>
+      <trans-unit id="h3x2hvh" resname="Statut du projet">
+        <source>Statut du projet</source>
+        <target>Statut du projet</target>
+      </trans-unit>
+      <trans-unit id="tO38wIk" resname="Type de projet">
+        <source>Type de projet</source>
+        <target>Type de projet</target>
+      </trans-unit>
+      <trans-unit id=".4BZ3Gd" resname="Actions">
+        <source>Actions</source>
+        <target>Actions</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

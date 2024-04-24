@@ -1,8 +1,13 @@
 {% extends 'base.html.twig' %}
-{% block title %}modifier une recette{% endblock %}
+{% block title %}Modifier un projet{% endblock %}
 
 {% block body %}
-  <h1>{{project.titre}}</h1>
-{{ form(form) }}
+  <h1>{{ project.titreFr }}</h1>
+
+  {{ form_start(form) }} 
+    {{ form_widget(form) }}
+
+    <button type="submit" class="btn btn-primary">{{ 'Modifier' | trans }}</button>
+    <a href="{{ path('app_project_index') }}" class="btn btn-secondary">{{ 'Retour à la liste' | trans }}</a>
+  {{ form_end(form) }}
 {% endblock %}
- 

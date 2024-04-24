@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 
@@ -20,12 +21,12 @@ class Manifestation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    /**
-     * This annotation is used to mark the entity as translatable using Gedmo Translatable.
-     */
-    #[Gedmo\Translatable]
-    private ?string $titre = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $titreFr = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $titreDe = null;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $titreEn = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $date_debut = null;
@@ -44,7 +45,8 @@ class Manifestation
     private ?Project $project_id = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $pays_tiers = null;
+    #[Assert\NotBlank]
+    private ?string $ville = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pays = null;
@@ -52,28 +54,55 @@ class Manifestation
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $justification_pays_tiers = null;
 
-    #[ORM\ManyToMany(targetEntity: Ville::class, inversedBy: 'manifestations')]
-    private Collection $ville;
-
+    /**
+     * @var Collection<int, PaysTiers>
+     */
+    #[ORM\OneToMany(mappedBy: 'manifestation', targetEntity: PaysTiers::class)]
+    private Collection $paysTiers;
 
     public function __construct()
     {
-        $this->ville = new ArrayCollection();
+        $this->paysTiers = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getTitre(): ?string
+    public function getTitreFr(): ?string
     {
-        return $this->titre;
+        return $this->titreFr;
     }
 
-    public function setTitre(string $titre): static
+    public function setTitreFr(string $titreFr): static
     {
-        $this->titre = $titre;
+        $this->titreFr = $titreFr;
+
+        return $this;
+    }
+
+    public function getTitreDe(): ?string
+    {
+        return $this->titreDe;
+    }
+
+    public function setTitreDe(string $titreDe): static
+    {
+        $this->titreDe = $titreDe;
+
+        return $this;
+    }
+
+    public function getTitreEn(): ?string
+    {
+        return $this->titreEn;
+    }
+
+    public function setTitreEn(string $titreEn): static
+    {
+        $this->titreEn = $titreEn;
 
         return $this;
     }
@@ -138,16 +167,14 @@ class Manifestation
         return $this;
     }
 
-
-
-    public function getPaysTiers(): ?string
+    public function getVille(): ?string
     {
-        return $this->pays_tiers;
+        return $this->ville;
     }
 
-    public function setPaysTiers(?string $pays_tiers): static
+    public function setVille(?string $ville): static
     {
-        $this->pays_tiers = $pays_tiers;
+        $this->ville = $ville;
 
         return $this;
     }
@@ -170,7 +197,7 @@ public function getPays(): ?string
     return $this->pays; 
 }
 
-public function setPays(?Pays $pays): static
+public function setPays(?string $pays): static
 {
     $this->pays = $pays;
 
@@ -178,27 +205,36 @@ public function setPays(?Pays $pays): static
 }
 
 /**
- * @return Collection<int, Ville>
+ * @return Collection<int, PaysTiers>
  */
-public function getVille(): Collection
+public function getPaysTiers(): Collection
 {
-    return $this->ville;
+    return $this->paysTiers;
 }
 
-public function addVille(Ville $ville): static
+public function addPaysTier(PaysTiers $paysTier): static
 {
-    if (!$this->ville->contains($ville)) {
-        $this->ville->add($ville);
+    if (!$this->paysTiers->contains($paysTier)) {
+        $this->paysTiers->add($paysTier);
+        $paysTier->setManifestation($this);
     }
 
     return $this;
 }
 
-public function removeVille(Ville $ville): static
+public function removePaysTier(PaysTiers $paysTier): static
 {
-    $this->ville->removeElement($ville);
+    if ($this->paysTiers->removeElement($paysTier)) {
+        // set the owning side to null (unless already changed)
+        if ($paysTier->getManifestation() === $this) {
+            $paysTier->setManifestation(null);
+        }
+    }
 
     return $this;
 }
+
+
+
 
 }

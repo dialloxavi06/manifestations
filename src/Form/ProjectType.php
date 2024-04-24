@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use App\Enum\StatutProjet;
+use App\Enum\TypeProjet;
 
 class ProjectType extends AbstractType
 {
@@ -17,18 +18,21 @@ class ProjectType extends AbstractType
     {
         $builder
             ->add('num_dossier')
-            ->add('titre')
-            ->add('statut', EnumType::class, [
-                'class' => StatutProjet::class,
-                'label' => 'Statut du projet',
+            ->add('titreFr')
+            ->add('titreDe')
+            ->add('titreEn')
+            
+            ->add('type', EnumType::class, [
+                'class' => TypeProjet::class,
+                'label' => 'Type de projet',
+                'choice_label' => 'value',
+                
             ])
-            ->add('createdAt')
-            ->add('submit', SubmitType::class, [
-                'label' => 'Créer',
-                'attr' => [
-                    'class' => 'btn btn-primary',
-                ],
+            ->add('discipline', DisciplineType::class, [
+                'label' => false,
             ])
+            
+           
         ;
     }
 

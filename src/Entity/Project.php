@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Enum\StatutProjet;
+use App\Enum\TypeProjet;
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
@@ -16,14 +17,23 @@ class Project
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, nullable: true)]
     private ?StatutProjet $statut = null ;
+
+    #[ORM\Column(length: 255, nullable: true,)]
+    private ?TypeProjet $type = null ;
 
     #[ORM\Column(length: 255)]
     private ?string $num_dossier = null; 
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $titre = null;
+    private ?string $titreFr = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $titreDe = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $titreEn = null;
 
     #[ORM\OneToMany(targetEntity: Manifestation::class, mappedBy: 'project_id')]
     private Collection $manifestations;
@@ -33,6 +43,9 @@ class Project
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'projects')]
+    private ?Discipline $discipline = null;
 
     public function __construct()
     {
@@ -58,14 +71,14 @@ class Project
         return $this;
     }
 
-    public function getTitre(): ?string
+    public function getTitreFr(): ?string
     {
-        return $this->titre;
+        return $this->titreFr;
     }
 
-    public function setTitre(?string $titre): static
+    public function setTitreFr(?string $titre): static
     {
-        $this->titre = $titre;
+        $this->titreFr = $titre;
 
         return $this;
     }
@@ -131,5 +144,61 @@ class Project
     {
         return $this->statut;
     }
-    
+
+    public function setStatut(StatutProjet $statut): static
+    {
+        $this->statut = $statut;
+
+        return $this;
+    }
+
+    public function getType(): ?TypeProjet
+    {
+        return $this->type;
+    }
+
+    public function setType(TypeProjet $type): static
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getTitreDe(): ?string
+    {
+        return $this->titreDe;
+    }
+
+    public function setTitreDe(?string $titreDe): static
+    {
+        $this->titreDe = $titreDe;
+
+        return $this;
+    }
+
+    public function getTitreEn(): ?string
+    {
+        return $this->titreEn;
+    }
+
+    public function setTitreEn(?string $titreEn): static
+    {
+        $this->titreEn = $titreEn;
+
+        return $this;
+    }
+
+    public function getDiscipline(): ?Discipline
+    {
+        return $this->discipline;
+    }
+
+    public function setDiscipline(?Discipline $discipline): static
+    {
+        $this->discipline = $discipline;
+
+        return $this;
+    }
+
+   
 }
