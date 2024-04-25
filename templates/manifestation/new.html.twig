@@ -1,48 +1,77 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Nouvelle Manifestation
+	Nouvelle Manifestation
 {% endblock %}
 
 {% block body %}
-    <h1>Créer une nouvelle Manifestation</h1>
- 
+	<h1>Créer une nouvelle Manifestation</h1>
 
-    <form action="{{ path('app_manifestation_new') }}" method="post">
-        <div class="row setup-content" id="step-1">
-            <div class="col-xs-6 col-md-offset-3">
-                <div class="col-md-12">
-                    <h3> Informations Génerales</h3>
-                    {{ form_row(form.titreFr) }}
-                    {{ form_row(form.titreDe) }}
-                    {{ form_row(form.titreEn) }}
-                    {{ form_row(form.date_debut) }}
-                    {{ form_row(form.date_fin) }}
-                    {{ form_row(form.duree) }}
-                    {{ form_row(form.justification_duree) }}
-                </div>
-            </div>
-        </div>
-        <div class="row setup-content" id="step-2">
-            <div class="col-xs-6 col-md-offset-3">
-                <div class="col-md-12">
-                    <h3>Localisation</h3>
-                    <div class="row">
-                        <div class="col-md-6">
-                            {{ form_row(form.pays) }}
-                             {% block ville %}
-                                {# Ceci sera rempli dynamiquement en fonction du pays sélectionné #}
-                            {% endblock %}
-                        </div>
-                        <div class="col-md-6">
-                        </div>
-                        <div class="col-md-12">
-                            {{ form_row(form.justification_pays_tiers) }}
-                            <h6> si le pays n'est pas Allemagne ou france Veuillez justifier votre choix.</h6>
-                        </div>
-                    </div>
-                    {{ include('manifestation/_form.html.twig') }}
-                </div>
-            </div>
-    </form>
+
+	<form action="{{ path('app_manifestation_new') }}" method="post">
+		<div class="row setup-content" id="step-1">
+			<div class="col-xs-6 col-md-offset-3">
+				<div class="col-md-12">
+					<fieldset>
+						<legend>Informations Générales</legend>
+						<div class="form-group">
+							<label for="{{ form.titreFr.vars.id }}">Titre (FR)</label>
+							{{ form_row(form.titreFr) }}
+						</div>
+						<div class="form-group">
+							<label for="{{ form.titreDe.vars.id }}">Titre (DE)</label>
+							{{ form_row(form.titreDe) }}
+						</div>
+						<div class="form-group">
+							<label for="{{ form.titreEn.vars.id }}">Titre (EN)</label>
+							{{ form_row(form.titreEn) }}
+						</div>
+						<hr>
+						<legend>Dates et Durée</legend>
+						<div class="form-group">
+							<label for="{{ form.date_debut.vars.id }}">Date de début</label>
+							{{ form_row(form.date_debut) }}
+						</div>
+						<div class="form-group">
+							<label for="{{ form.date_fin.vars.id }}">Date de fin</label>
+							{{ form_row(form.date_fin) }}
+						</div>
+						<div class="form-group">
+							<label for="{{ form.duree.vars.id }}">Durée</label>
+							{{ form_row(form.duree) }}
+						</div>
+						<div class="form-group">
+							<label for="{{ form.justification_duree.vars.id }}">Justification de la durée</label>
+							{{ form_row(form.justification_duree) }}
+						</div>
+					</fieldset>
+				</div>
+			</div>
+		</div>
+		<div class="row setup-content" id="step-2">
+			<div class="col-xs-6 col-md-offset-3">
+				<div class="col-md-12">
+					<fieldset>
+						<legend>Localisation</legend>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="{{ form.pays.vars.id }}">Pays</label>
+									{{ form_row(form.pays) }}
+								</div>
+								<div class="form-group">
+									{% block ville %}
+										{# Ceci sera rempli dynamiquement en fonction du pays sélectionné #}
+									{% endblock %}
+								</div>
+							</div>
+							<div class="col-md-6"></div>
+						</div>
+					</fieldset>
+					{{ include('manifestation/_form.html.twig') }}
+				</div>
+			</div>
+		</div>
+
+	</form>
 {% endblock %}

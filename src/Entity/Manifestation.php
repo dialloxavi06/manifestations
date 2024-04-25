@@ -39,7 +39,7 @@ class Manifestation
 
     #[ORM\Column(length: 255, nullable: true)]
     #[Gedmo\Translatable]
-    private ?string $justification_duree = null; 
+    private ?string $justification_duree = null;
 
     #[ORM\ManyToOne(inversedBy: 'manifestations')]
     private ?Project $project_id = null;
@@ -192,49 +192,45 @@ class Manifestation
     }
 
 
-public function getPays(): ?string
-{
-    return $this->pays; 
-}
-
-public function setPays(?string $pays): static
-{
-    $this->pays = $pays;
-
-    return $this;
-}
-
-/**
- * @return Collection<int, PaysTiers>
- */
-public function getPaysTiers(): Collection
-{
-    return $this->paysTiers;
-}
-
-public function addPaysTier(PaysTiers $paysTier): static
-{
-    if (!$this->paysTiers->contains($paysTier)) {
-        $this->paysTiers->add($paysTier);
-        $paysTier->setManifestation($this);
+    public function getPays(): ?string
+    {
+        return $this->pays;
     }
 
-    return $this;
-}
+    public function setPays(?string $pays): static
+    {
+        $this->pays = $pays;
 
-public function removePaysTier(PaysTiers $paysTier): static
-{
-    if ($this->paysTiers->removeElement($paysTier)) {
-        // set the owning side to null (unless already changed)
-        if ($paysTier->getManifestation() === $this) {
-            $paysTier->setManifestation(null);
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, PaysTiers>
+     */
+    public function getPaysTiers(): Collection
+    {
+        return $this->paysTiers;
+    }
+
+    public function addPaysTier(PaysTiers $paysTier): static
+    {
+        if (!$this->paysTiers->contains($paysTier)) {
+            $this->paysTiers->add($paysTier);
+            $paysTier->setManifestation($this);
         }
+
+        return $this;
     }
 
-    return $this;
-}
+    public function removePaysTier(PaysTiers $paysTier): static
+    {
+        if ($this->paysTiers->removeElement($paysTier)) {
+            // set the owning side to null (unless already changed)
+            if ($paysTier->getManifestation() === $this) {
+                $paysTier->setManifestation(null);
+            }
+        }
 
-
-
-
+        return $this;
+    }
 }
