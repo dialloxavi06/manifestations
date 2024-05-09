@@ -17,32 +17,25 @@ class ContactController extends AbstractController
     public function contact(Request $request, MailerInterface $mailer): Response
     {
         $data = new ContactDTO();
-        $data->name = 'Your name';
-        $data->email = 'Your email';
-        $data->message = 'Your message';
-        $data->subject = 'Your subject';
         $form = $this->createForm(ContactType::class, $data);
         $form->handleRequest($request);
-        
+
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
-            try{
+            try {
                 $email = (new Email())
-                ->from($data->email)
-                ->to($data->service)
-                ->from($data->email)
-                ->subject($data->subject)
-                ->text($data->message)
-                ->html('<p>'.$data->message.'</p>');
-            $mailer->send($email);
-            $this->addFlash('success', 'Votre message a bien été envoyé. Merci !/ihre Nachricht wurde erfolgreich gesendet. Danke!');
-            return $this->redirectToRoute('contact');
-
-            }
-            catch(\Exception $e){
+                    ->from($data->email)
+                    ->to($data->service)
+                    ->from($data->email)
+                    ->subject($data->subject)
+                    ->text($data->message)
+                    ->html('<p>' . $data->message . '</p>');
+                $mailer->send($email);
+                $this->addFlash('success', 'Votre message a bien été envoyé. Merci /ihre Nachricht wurde erfolgreich gesendet. Danke!');
+                return $this->redirectToRoute('contact');
+            } catch (\Exception $e) {
                 $this->addFlash('error', 'Une erreur est survenue. Veuillez réessayer/Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.');
             }
-            
         }
         return $this->render('contact/contact.html.twig', [
             'form' => $form,

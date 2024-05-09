@@ -3,14 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Project;
-use Doctrine\Common\Annotations\Annotation\Enum;
+use App\Entity\TypeProject;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\EnumType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use App\Enum\StatutProjet;
-use App\Enum\TypeProjet;
+
+
 
 class ProjectType extends AbstractType
 {
@@ -21,19 +21,11 @@ class ProjectType extends AbstractType
             ->add('titreFr')
             ->add('titreDe')
             ->add('titreEn')
-            
-            ->add('type', EnumType::class, [
-                'class' => TypeProjet::class,
-                'label' => 'Type de projet',
-                'choice_label' => 'value',
-                
+            ->add('type_project', EntityType::class, [
+                'class' => TypeProject::class,
+                'choice_label' => 'nom',
             ])
-            ->add('discipline', DisciplineType::class, [
-                'label' => false,
-            ])
-            
-           
-        ;
+            ->add('save', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

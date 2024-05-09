@@ -45,4 +45,13 @@ class VilleRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function LeftJoinVilleCountries()
+    {
+        return $this->createQueryBuilder('v')
+            ->leftJoin('v.countries', 'c')
+            ->addSelect('c')
+            ->getQuery()
+            ->getResult();
+    }
 }

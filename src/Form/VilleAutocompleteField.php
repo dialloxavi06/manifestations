@@ -20,10 +20,10 @@ class VilleAutocompleteField extends AbstractType
             'placeholder' => 'Choisir une ou plusieur ville',
             'multiple' => true,
             'constraints' => [
-                new Count(min: 1, minMessage: 'Besoin de choisir *quelque chose*'),
+                new Count(min: 1, minMessage: 'Veuillez Choisir une ou plusieur ville'),
             ],
 
-          
+
 
             // 'security' => 'ROLE_SOMETHING',
         ]);

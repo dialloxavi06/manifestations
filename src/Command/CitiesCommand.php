@@ -8,6 +8,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\HttpClient\HttpClient;
+use App\Entity\Countries;
 
 class CitiesCommand extends Command
 {
@@ -26,45 +27,43 @@ class CitiesCommand extends Command
             ->setDescription('Fill database with data from API');
     }
 
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // Initialiser la limite de mémoire
-        ini_set('memory_limit', '512M');
 
-        // Vider la table Ville avant d'insérer de nouvelles données
-        $connection = $this->entityManager->getConnection();
-        $platform = $connection->getDatabasePlatform();
-        $connection->executeStatement($platform->getTruncateTableSQL('ville', true /* whether to cascade */));
 
+        // Récupérer l'entité du pays correspondant à partir de l'ID du pays (France)
+        $countryRepository = $this->entityManager->getRepository(Countries::class);
+        $france = $countryRepository->find(55); // ID de la France
+
+        // Récupérer les 500 plus grandes villes de la France
         $httpClient = HttpClient::create();
-        $response = $httpClient->request('GET', 'https://geo.api.gouv.fr/communes');
+        $response = $httpClient->request('GET', 'https://geo.api.gouv.fr/communes', [
+            'query' => [
+                'fields' => 'nom,code',
+                'limit' => 500,
+                'order' => 'population',
+                'sort' => 'desc',
+                'boost[]' => 'population',
+            ]
+        ]);
 
-        $cities = $response->toArray();
-
-        // Définir la taille du lot pour l'insertion
-        $batchSize = 1000;
+        $citiesFrance = $response->toArray();
 
         // Compter le nombre total de villes insérées
         $totalInserted = 0;
 
-        foreach (array_chunk($cities, $batchSize) as $chunk) {
-            $this->entityManager->beginTransaction();
-            try {
-                foreach ($chunk as $cityData) {
-                    $ville = new Ville();
-                    $ville->setNom($cityData['nom']);
-                    $ville->setCode(intval($cityData['code']));
-                    $this->entityManager->persist($ville);
-                    $totalInserted++;
-                }
+        foreach ($citiesFrance as $cityData) {
+            $city = new Ville();
+            $city->setNom($cityData['nom']);
+            $city->setCode(intval($cityData['code']));
+            $city->setCountries($france); // Associer la ville à la France
 
-                $this->entityManager->flush();
-                $this->entityManager->commit();
-            } catch (\Throwable $e) {
-                $this->entityManager->rollback();
-                throw $e;
-            }
+            $this->entityManager->persist($city);
+            $totalInserted++;
         }
+
+        $this->entityManager->flush();
 
         return Command::SUCCESS;
     }

@@ -7,112 +7,81 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\HttpClient\HttpClient;
-
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use App\Entity\Countries as Pays;
+use App\Repository\CountriesRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\Ville;
+use App\Repository\VilleRepository;
 
 class ManifestationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('titreFr', TextType::class, ['label' => false])
+            ->add('titreDe', TextType::class, ['label' => false])
+            ->add('titreEn', TextType::class, ['label' => false])
+            ->add('date_debut', DateType::class, [
+                'attr' => [
+                    'type' => "date",
+                    'id' => "date_debut"
+                ]
 
-            ->add('titreFr', null, [
-                'label' => false,
             ])
-            ->add('titreDe', null, [
-                'label' => false,
+            ->add('date_fin', DateType::class, [
+                'attr' => [
+                    'type' => "date",
+                    'id' => "date_fin"
+                ]
             ])
-            ->add('titreEn', null, [
-                'label' => false,
+            ->add('duree', TextType::class, [
+                'attr' => [
+                    'readonly' => true,
+                    'id' => "duree"
+                ]
             ])
-            ->add('date_debut', null, [
-                'widget' => 'single_text',
-                'label' => false,
-            ])
-            ->add('date_fin', null, [
-                'widget' => 'single_text',
-                'label' => false,
-            ])
-            ->add('duree', null, [
-                'label' => false,
-            ])
-            ->add('justification_duree', TextAreaType::class, [
-                'label' => false,
+            ->add('justification_duree', TextareaType::class, [
+                'attr' => [
+                    'rows' => 5,
+                    'cols' => 33,
+                    'id' => "justification_duree"
+                ]
             ])
 
-
-            ->add('pays', ChoiceType::class, [
-                'choices' => [
-                    'France' => 'FR',
-                    'Allemagne' => 'DE',
-                    'Autre' => 'AU'
-                ],
-                'placeholder' => 'Sélectionner un pays',
+            ->add(
+                'countries',
+                EntityType::class,
+                [
+                    'class' => Pays::class,
+                    'choice_label' => 'nom',
+                    'multiple' => true,
+                    'autocomplete' => true,
+                    'query_builder' => function (CountriesRepository $er) {
+                        return $er->createQueryBuilder('pays')
+                            ->orderBy('CASE WHEN pays.nom IN (:countries) THEN 0 ELSE 1 END', 'ASC')
+                            ->setParameter('countries', ['Germany', 'France'])
+                            ->addOrderBy('pays.nom', 'ASC');
+                    },
+                ]
+            )
+            ->add('ville', EntityType::class, [
+                'class' => Ville::class,
+                'choice_label' => 'nom',
+                'multiple' => true,
+                'autocomplete' => true,
+                'query_builder' => function (VilleRepository $er) {
+                    return $er->createQueryBuilder('ville')
+                        ->orderBy('ville.nom', 'ASC');
+                },
+            ])
+            ->add('autre_ville', TextType::class, [
                 'required' => false,
-                'label' => false,
+                'attr' => [
+                    'id' => "autre_ville"
+                ]
             ]);
-
-
-        $builder->get('pays')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) {
-                $form = $event->getForm();
-                $manifestation = $event->getForm()->getData();
-
-
-                // Vérifiez si les données existent et que le pays est défini
-                if ($manifestation) {
-                    $cities = $this->getCitiesForCountry($manifestation);
-
-                    // Mettre à jour les options pour le champ de la ville
-                    $form->getParent()->add('ville', ChoiceType::class, [
-                        'choices' => $cities,
-                        'placeholder' => 'Sélectionner une ville',
-                        'required' => true,
-                    ]);
-                }
-            }
-        );
-    }
-
-    private function getCitiesForCountry(string $country): array
-    {
-        // Ici, vous devriez implémenter la logique pour obtenir les villes du pays donné
-        // Cela pourrait impliquer une requête à une base de données ou un appel à une API de géolocalisation
-        // Pour cet exemple, je vais simplement renvoyer un tableau statique
-
-
-        $httpClient = HttpClient::create();
-        $response = $httpClient->request('GET', 'https://geo.api.gouv.fr/communes');
-
-        $cities = $response->toArray();
-
-        if ($country === 'FR') {
-
-            foreach ($cities as $city) {
-                dd($cities[$city['nom']] = $city['nom']);
-            }
-            return [
-                'Paris' => 'Paris',
-                'Marseille' => 'Marseille',
-                'Lyon' => 'Lyon',
-                'Toulouse' => 'Toulouse',
-                'Nice' => 'Nice'
-            ];
-        } elseif ($country === 'DE') {
-            return [
-                'Berlin' => 'Berlin',
-                'Hambourg' => 'Hambourg',
-                'Munich' => 'Munich',
-                'Cologne' => 'Cologne',
-                'Francfort' => 'Francfort'
-            ];
-        } else {
-            return [];
-        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void

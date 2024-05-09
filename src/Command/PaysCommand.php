@@ -2,6 +2,7 @@
 
 namespace App\Command;
 
+use App\Entity\Countries;
 use App\Entity\Pays;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -9,6 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\HttpClient\HttpClient;
+
 
 class PaysCommand extends Command
 {
@@ -32,10 +34,7 @@ class PaysCommand extends Command
         // Définir la limite de mémoire
         ini_set('memory_limit', '256M');
 
-        // Vider la table Pays avant d'insérer de nouvelles données
-        $connection = $this->entityManager->getConnection();
-        $platform = $connection->getDatabasePlatform();
-        $connection->executeStatement($platform->getTruncateTableSQL('pays', true /* whether to cascade */));
+
 
         $io = new SymfonyStyle($input, $output);
 
@@ -56,8 +55,9 @@ class PaysCommand extends Command
 
             // Insérer les données dans la base de données
             foreach ($paysData['results'] as $paysData) {
-                $pays = new Pays();
-                $pays->setNom($paysData['name_fr']);
+                $pays = new Countries();
+                $pays->setNom($paysData['name_en']);
+                $pays->setCodeIso($paysData['iso3']);
 
                 $this->entityManager->persist($pays);
                 $totalInserted++;

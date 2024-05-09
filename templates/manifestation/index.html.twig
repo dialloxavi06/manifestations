@@ -1,61 +1,176 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Manifestation index{% endblock %}
-
-
-
+{% block title %}Manifestation index
+{% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('js/manifestation.js') }}"></script>
+	<script src="{{ asset('js/manifestation.js') }}"></script>
 {% endblock %}
+
 {% block navbar %}
-{% include('partials/nav.html.twig') %}
+	{% include 'partials/nav.html.twig' %}
 {% endblock %}
+{% block stylesheets %}
+	<style>
+		.icons-container {
+			display: flex;
+			align-items: center;
+			gap: 10px; /* Espacement entre les icônes */
+			background-color: #f0f0f0; /* Couleur de fond */
+			padding: 5px; /* Espacement intérieur */
+			border-radius: 5px; /* Bord arrondi */
+		}
+
+		.icons-container a {
+			text-decoration: none; /* Supprimer le soulignement du lien */
+			color: #333; /* Couleur du texte */
+		}
+
+		.icons-container a:hover {
+			color: #555; /* Couleur du texte au survol */
+		}
+	</style>
+{% endblock %}
+
 
 {% block body %}
 <a class="btn btn-primary nouvelle-manifestation" id="nouvelle-manifestation" href="{{ path('app_manifestation_new') }}">Nouvelle Manifestation</a>
+<h1>{{ 'Liste des Manifestations'|trans }}</h1>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>{{ 'Titre Francais'|trans }}</th>
+			<th>{{ 'Titre Allemand'|trans }}</th>
+			<th>{{ 'Titre Anglais'|trans }}</th>
+			<th>{{ 'Debut'|trans }}</th>
+			<th>{{ 'Fin'|trans }}</th>
+			<th>{{ 'Durée'|trans }}</th>
+			<th>{{ 'Pays'|trans }}</th>
+			<th>{{ 'ville'|trans }}</th>
+			<th>{{ 'Autre Villes'|trans }}</th>
+			<th>{{ 'Justification de la durée'|trans }}</th>
+			<th>{{ 'Statut'|trans }}</th>
+			<th>{{ 'actions'|trans }}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for manifestation in manifestations %}
+			<tr>
+				<td>{{ manifestation.titreFr }}</td>
+				<td>{{ manifestation.titreDe }}</td>
+				<td>{{ manifestation.titreEn }}</td>
+				<td>{{ manifestation.dateDebut ? manifestation.dateDebut|date('d-m-y') : '' }}</td>
+				<td>{{ manifestation.dateFin ? manifestation.dateFin|date('d-m-y') : '' }}</td>
+				<td>{{ manifestation.duree }}</td>
+				<td>
+					{% for country in manifestation.countries %}
+						{{ country.nom }}
+					{% endfor %}
+				</td>
+				<td>
+					{% for city in manifestation.ville %}
+						{{ city.nom }}
+					{% endfor %}
+				</td>
+				<td>{{ manifestation.autreVille }}</td>
+				<td>{{ manifestation.justificationDuree }}</td>
+				<td>
+					{% for statut in manifestation.statuses %}
+						{% if statut.nom == 'En attente' %}
+							<span class="badge badge-warning">{{ statut.nom }}</span>
+						{% elseif statut.nom == 'Accepté(e)' %}
+							<span class="badge badge-success">{{ statut.nom }}</span>
+						{% elseif statut.nom == 'Refusé(e)' %}
+							<span class="badge badge-danger">{{ statut.nom }}</span>
+						{% elseif statut.nom == 'Annulé(e)' %}
+							<span class="badge badge-danger">{{ statut.nom }}</span>
+						{% elseif statut.nom == 'En cours d\'évaluation' %}
+								<span class="badge badge-danger">{{ statut.nom }}</span>
+						{% elseif statut.nom == 'Soutenu' %}
+								<span class="badge badge-danger">{{ statut.nom }}</span>
+						{% elseif statut.nom == 'Non soutenu' %}
+								<span class="badge badge-danger">{{ statut.nom }}</span>
+							{% elseif statut.nom == 'En cours de rétractation' %}
+							<span class="badge badge-danger">{{ statut.nom }}</span>
+
+						{% endif %}
+						{% endfor %}
+					</td>
+					<td>
+						<div class="icons-container">
+							<a href="{{ path('app_manifestation_show', {'id': manifestation.id}) }}">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewbox="0 0 16 16">
+									<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+									<path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+								</svg>
+							</a>
+
+							<a href="{{ path('app_manifestation_edit', {'id': manifestation.id}) }}">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil" viewbox="0 0 16 16">
+									<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
+								</svg>
+							</a>
+
+							<a class="demander-annulation" href="{{ path('app_manifestation_annulation', {'id': manifestation.id}) }}">
+								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewbox="0 0 16 16">
+									<path d="M7.5 2a.5.5 0 0 1 .492.41l.008.09v6a.5.5 0 0 1-.41.492l-.09.008H7.5a.5.5 0 0 1-.492-.41L7 8.5V2.5a.5.5 0 0 1 .5-.5zM8 11a.5.5 0 0 1 .5.5v.5a.5.5 0 0 1-.5.5h-.5a.5.5 0 0 1-.5-.5v-.5a.5.5 0 0 1 .5-.5h.5zm7.854-1.854a.5.5 0 0 1 0 .707L9.561 13.75a1.5 1.5 0 0 1-2.122 0L.146 6.854a.5.5 0 1 1 .708-.708L7.5 11.293l7.646-7.647a.5.5 0 0 1 .708 0z"/>
+								</svg>
+							</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</tbody>
+	</tr>
+{% else %}
+	<tr>
+		<td colspan="12">Aucune manifestation trouvée.</td>
+	</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<div class="pagination-container">
+	{% if page != 1 %}
+		<a class="btn btn-primary" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'page': page - 1})) }}">Précédent</a>
+	{% endif %}
+
+	{% for i in 1..totalItems %}
+		{% if i != page %}
+			<a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'page': i})) }}">{{ i }}</a>
+		{% else %}
+			<span>{{ i }}</span>
+		{% endif %}
+	{% endfor %}
+
+	{% if page != totalItems %}
+		<a class="btn btn-primary" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'page': page + 1})) }}">Suivant</a>
+	{% endif %}
+</div>
 
 
-    <h1> {{ '__Liste des Manifestations' |trans}}</h1> 
+<script>// Récupérez tous les boutons de demande d'annulation
+var buttons = document.querySelectorAll('.annuler-manifestation');
 
-    <table class="table">
-        <thead>
-            <tr> 
-                <th>{{ 'Titre Francais' |trans}}</th>
-                <th> {{ 'Titre Allemand' |trans}}</th>
-                <th> {{ 'Titre Anglais' |trans}}</th>
-                <th> {{ 'Debut' |trans}}</th>
-                <th> {{ 'Fin' |trans}}</th>
-                <th> {{ 'Durée' |trans}}</th>
-                <th> {{ 'Justification de la durée' |trans}}</th>
-                <th> {{ 'actions' |trans}}</th>
-            </tr>
-        </thead> 
-        <tbody> 
-        {% for manifestation in manifestations %}
-            <tr>
-                <td>{{ manifestation.titreFr }}</td>
-                <td>{{ manifestation.titreDe }}</td>
-                <td>{{ manifestation.titreEn }}</td>
-                <td>{{ manifestation.dateDebut ? manifestation.dateDebut|date('Y-m-d') : '' }}</td>
-                <td>{{ manifestation.dateFin ? manifestation.dateFin|date('Y-m-d') : '' }}</td>
-                <td>{{ manifestation.duree }}</td>
-                <td>{{ manifestation.justificationDuree }}</td>
-                <td>
-                    <a href="{{ path('app_manifestation_show', {'id': manifestation.id}) }}">voir</a>
-                    <a href="{{ path('app_manifestation_edit', {'id': manifestation.id}) }}">modifier</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7"> {{ 'Aucun Item Trouvé' |trans}}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+buttons.forEach(function (button) {
+button.addEventListener('click', function (event) {
+event.preventDefault();
+var id = this.getAttribute('data-id');
 
-    
+// Affichez une popup de confirmation
+var confirmation = confirm("Voulez-vous vraiment annuler cette manifestation ?");
 
-
-
-{% endblock %}
+if (confirmation) { // Envoyez une requête AJAX pour enregistrer la demande d'annulation
+var xhr = new XMLHttpRequest();
+xhr.open('POST', '/manifestation/annulation/' + id, true);
+xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+xhr.onreadystatechange = function () {
+if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) { // Affichez un message de confirmation à l'utilisateur
+alert("Demande d'annulation soumise avec succès.");
+}
+};
+xhr.send();
+}
+});
+});</script>{% endblock %}

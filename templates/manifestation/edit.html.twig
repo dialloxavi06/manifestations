@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier une Manifestation{% endblock %}
+{% block title %}Modifier une Manifestation
+{% endblock %}
 
 {% block body %}
-    <h1>Modifier une Manifestation</h1>
+	<h1>Modifier une Manifestation</h1>
 
-    {{ include('manifestation/_form.html.twig', {'button_label': 'Update'}) }}
+	{{ include('manifestation/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_manifestation_index') }}">annuler</a>
+	<a class="btn btn-primary" href="{{ path('app_manifestation_index') }}">annuler</a>
 
-    {{ include('manifestation/_delete_form.html.twig') }}
+	{{ include('manifestation/_delete_form.html.twig') }}
 {% endblock %}

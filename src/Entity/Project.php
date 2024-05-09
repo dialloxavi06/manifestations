@@ -6,8 +6,7 @@ use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Enum\StatutProjet;
-use App\Enum\TypeProjet;
+
 
 #[ORM\Entity(repositoryClass: ProjectRepository::class)]
 class Project
@@ -17,14 +16,8 @@ class Project
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?StatutProjet $statut = null ;
-
-    #[ORM\Column(length: 255, nullable: true,)]
-    private ?TypeProjet $type = null ;
-
     #[ORM\Column(length: 255)]
-    private ?string $num_dossier = null; 
+    private ?string $num_dossier = null;
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $titreFr = null;
@@ -35,7 +28,7 @@ class Project
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $titreEn = null;
 
-    #[ORM\OneToMany(targetEntity: Manifestation::class, mappedBy: 'project_id')]
+    #[ORM\OneToMany(targetEntity: Manifestation::class, mappedBy: 'project')]
     private Collection $manifestations;
 
     #[ORM\Column(nullable: true)]
@@ -45,7 +38,12 @@ class Project
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'projects')]
-    private ?Discipline $discipline = null;
+    private ?TypeProject $type_project = null;
+
+    #[ORM\ManyToOne(inversedBy: 'projects')]
+    private ?Status $status_project = null;
+
+
 
     public function __construct()
     {
@@ -114,7 +112,7 @@ class Project
         return $this;
     }
 
-   
+
 
     public function getCreatedAt(): ?\DateTimeImmutable
     {
@@ -140,29 +138,6 @@ class Project
         return $this;
     }
 
-    public function getStatut(): ?StatutProjet
-    {
-        return $this->statut;
-    }
-
-    public function setStatut(StatutProjet $statut): static
-    {
-        $this->statut = $statut;
-
-        return $this;
-    }
-
-    public function getType(): ?TypeProjet
-    {
-        return $this->type;
-    }
-
-    public function setType(TypeProjet $type): static
-    {
-        $this->type = $type;
-
-        return $this;
-    }
 
     public function getTitreDe(): ?string
     {
@@ -188,17 +163,27 @@ class Project
         return $this;
     }
 
-    public function getDiscipline(): ?Discipline
+    public function getTypeProject(): ?TypeProject
     {
-        return $this->discipline;
+        return $this->type_project;
     }
 
-    public function setDiscipline(?Discipline $discipline): static
+    public function setTypeProject(?TypeProject $type_project): static
     {
-        $this->discipline = $discipline;
+        $this->type_project = $type_project;
 
         return $this;
     }
 
-   
+    public function getStatusProject(): ?Status
+    {
+        return $this->status_project;
+    }
+
+    public function setStatusProject(?Status $status_project): static
+    {
+        $this->status_project = $status_project;
+
+        return $this;
+    }
 }

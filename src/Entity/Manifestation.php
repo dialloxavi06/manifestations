@@ -7,10 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
-
-
 
 
 #[ORM\Entity(repositoryClass: ManifestationRepository::class)]
@@ -20,49 +17,63 @@ class Manifestation
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message: 'Veuillez renseigner le titre en français')]
     private ?string $titreFr = null;
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message: 'Veuillez renseigner le titre en allemand')]
     private ?string $titreDe = null;
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\NotBlank(message: 'Veuillez renseigner le titre en anglais')]
     private ?string $titreEn = null;
-
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Veuillez renseigner la date de début')]
     private ?\DateTimeImmutable $date_debut = null;
-
     #[ORM\Column]
     private ?\DateTimeImmutable $date_fin = null;
-
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $duree = null;
-
     #[ORM\Column(length: 255, nullable: true)]
-    #[Gedmo\Translatable]
+    #[Assert\NotBlank(message: 'Veuillez renseigner la justification de la durée')]
     private ?string $justification_duree = null;
-
     #[ORM\ManyToOne(inversedBy: 'manifestations')]
-    private ?Project $project_id = null;
+    private ?Project $project = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\NotBlank]
-    private ?string $ville = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $pays = null;
+    /**
+     * @var Collection<int, Manifestation>
+     */
+    #[ORM\ManyToMany(targetEntity: Countries::class, inversedBy: 'manifestations')]
+    private Collection $countries;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $justification_pays_tiers = null;
+    /**
+     * @var Collection<int, Ville>
+     */
+    #[ORM\ManyToMany(targetEntity: Ville::class, inversedBy: 'manifs')]
+    private Collection $ville;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $autre_ville = null;
 
     /**
-     * @var Collection<int, PaysTiers>
+     * @var Collection<int, Status>
      */
-    #[ORM\OneToMany(mappedBy: 'manifestation', targetEntity: PaysTiers::class)]
-    private Collection $paysTiers;
+    #[ORM\ManyToMany(targetEntity: Status::class, mappedBy: 'manifestations')]
+    private Collection $statuses;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $motif_annulation = null;
+
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $description_annulation = null;
+
 
     public function __construct()
     {
-        $this->paysTiers = new ArrayCollection();
+        $this->ville = new ArrayCollection();
+        $this->duree = $this->calculateDuration();
+        $this->countries = new ArrayCollection();
+        $this->statuses = new ArrayCollection();
     }
 
 
@@ -157,24 +168,12 @@ class Manifestation
 
     public function getProjectId(): ?Project
     {
-        return $this->project_id;
+        return $this->project;
     }
 
-    public function setProjectId(?Project $project_id): static
+    public function setProjectId(?Project $project): static
     {
-        $this->project_id = $project_id;
-
-        return $this;
-    }
-
-    public function getVille(): ?string
-    {
-        return $this->ville;
-    }
-
-    public function setVille(?string $ville): static
-    {
-        $this->ville = $ville;
+        $this->project = $project;
 
         return $this;
     }
@@ -192,44 +191,140 @@ class Manifestation
     }
 
 
-    public function getPays(): ?string
+    /**
+     * @return Collection<int, Ville>
+     */
+    public function getVille(): Collection
     {
-        return $this->pays;
+        return $this->ville;
     }
 
-    public function setPays(?string $pays): static
+    public function addVille(Ville $ville): static
     {
-        $this->pays = $pays;
+        if (!$this->ville->contains($ville)) {
+            $this->ville->add($ville);
+        }
+
+        return $this;
+    }
+
+    public function removeVille(Ville $ville): static
+    {
+        $this->ville->removeElement($ville);
 
         return $this;
     }
 
     /**
-     * @return Collection<int, PaysTiers>
+     * @return Collection<int, Countries>
      */
-    public function getPaysTiers(): Collection
+
+    public function getCountries(): Collection
+
     {
-        return $this->paysTiers;
+        return $this->countries;
     }
 
-    public function addPaysTier(PaysTiers $paysTier): static
+    public function addCountry(Countries $country): static
     {
-        if (!$this->paysTiers->contains($paysTier)) {
-            $this->paysTiers->add($paysTier);
-            $paysTier->setManifestation($this);
+        if (!$this->countries->contains($country)) {
+            $this->countries->add($country);
+            $country->addManifestation($this);
         }
 
         return $this;
     }
 
-    public function removePaysTier(PaysTiers $paysTier): static
+    public function removeCountry(Countries $country): static
     {
-        if ($this->paysTiers->removeElement($paysTier)) {
-            // set the owning side to null (unless already changed)
-            if ($paysTier->getManifestation() === $this) {
-                $paysTier->setManifestation(null);
-            }
+        if ($this->countries->removeElement($country)) {
+            $country->removeManifestation($this);
         }
+
+        return $this;
+    }
+
+
+    // Méthode pour calculer la durée
+    public function calculateDuration(): ?string
+    {
+        if ($this->date_debut && $this->date_fin) {
+            $interval = $this->date_debut->diff($this->date_fin);
+            return $interval->format('%a jours');
+        }
+
+        return null;
+    }
+
+    public function getAutreVille(): ?string
+    {
+        return $this->autre_ville;
+    }
+
+    public function setAutreVille(?string $autre_ville): static
+    {
+        $this->autre_ville = $autre_ville;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Status>
+     */
+    public function getStatuses(): Collection
+    {
+        return $this->statuses;
+    }
+
+    public function addStatus(Status $status): static
+    {
+        if (!$this->statuses->contains($status)) {
+            $this->statuses->add($status);
+            $status->addManifestation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStatus(Status $status): static
+    {
+        if ($this->statuses->removeElement($status)) {
+            $status->removeManifestation($this);
+        }
+
+        return $this;
+    }
+
+
+    // Dans la classe Manifestation
+
+    public function removeAllStatus(): void
+    {
+        foreach ($this->statuses as $status) {
+            $this->removeStatus($status);
+        }
+    }
+
+    public function getMotifAnnulation(): ?string
+    {
+        return $this->motif_annulation;
+    }
+
+    public function setMotifAnnulation(?string $motif_annulation): static
+    {
+        $this->motif_annulation = $motif_annulation;
+
+        return $this;
+    }
+
+    public function getDescriptionAnnulation(): ?string
+    {
+        return $this->description_annulation;
+    }
+
+    public function setDescriptionAnnulation(?string $description_annulation): static
+    {
+        $this->description_annulation = $description_annulation;
 
         return $this;
     }

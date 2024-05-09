@@ -19,32 +19,31 @@ class ContactType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'empty_data' => '',
-                'label' => 'Nom/Name'
+                'label' => false
             ])
             ->add('email', EmailType::class, [
                 'empty_data' => '',
-                'label' => 'E-mail'
+                'label' => false
             ])
             ->add('subject', TextType::class, [
                 'empty_data' => '',
-                'label' => 'Sujet/Subject'
+                'label' => false
             ])
             ->add('message', TextAreaType::class, [
                 'empty_data' => '',
-                'label' => 'Message/Nachricht'
+                'label' => false
             ])
             ->add('save', SubmitType::class, [
-                'label' => 'envoyer/senden'
+                'label' => false
             ])
             ->add('service', ChoiceType::class, [
                 'choices' => [
                     'Comptabilité' => 'compta@demo.de',
-                    'Support' => 'support@demo.fr',
+                    'Support' => 'diallo@dfh-ufa.org',
                     'Commercial' => 'marketing@demo.fr',
                 ],
-                'label' => 'Service'
-            ])
-        ;
+                'label' => false
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

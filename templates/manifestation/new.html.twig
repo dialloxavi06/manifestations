@@ -3,75 +3,172 @@
 {% block title %}
 	Nouvelle Manifestation
 {% endblock %}
-
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}
 {% block body %}
 	<h1>Créer une nouvelle Manifestation</h1>
-
-
 	<form action="{{ path('app_manifestation_new') }}" method="post">
-		<div class="row setup-content" id="step-1">
-			<div class="col-xs-6 col-md-offset-3">
-				<div class="col-md-12">
-					<fieldset>
-						<legend>Informations Générales</legend>
-						<div class="form-group">
-							<label for="{{ form.titreFr.vars.id }}">Titre (FR)</label>
-							{{ form_row(form.titreFr) }}
-						</div>
-						<div class="form-group">
-							<label for="{{ form.titreDe.vars.id }}">Titre (DE)</label>
-							{{ form_row(form.titreDe) }}
-						</div>
-						<div class="form-group">
-							<label for="{{ form.titreEn.vars.id }}">Titre (EN)</label>
-							{{ form_row(form.titreEn) }}
-						</div>
-						<hr>
-						<legend>Dates et Durée</legend>
-						<div class="form-group">
-							<label for="{{ form.date_debut.vars.id }}">Date de début</label>
-							{{ form_row(form.date_debut) }}
-						</div>
-						<div class="form-group">
-							<label for="{{ form.date_fin.vars.id }}">Date de fin</label>
-							{{ form_row(form.date_fin) }}
-						</div>
-						<div class="form-group">
-							<label for="{{ form.duree.vars.id }}">Durée</label>
-							{{ form_row(form.duree) }}
-						</div>
-						<div class="form-group">
-							<label for="{{ form.justification_duree.vars.id }}">Justification de la durée</label>
-							{{ form_row(form.justification_duree) }}
-						</div>
-					</fieldset>
-				</div>
-			</div>
-		</div>
-		<div class="row setup-content" id="step-2">
-			<div class="col-xs-6 col-md-offset-3">
-				<div class="col-md-12">
-					<fieldset>
-						<legend>Localisation</legend>
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label for="{{ form.pays.vars.id }}">Pays</label>
-									{{ form_row(form.pays) }}
-								</div>
-								<div class="form-group">
-									{% block ville %}
-										{# Ceci sera rempli dynamiquement en fonction du pays sélectionné #}
-									{% endblock %}
-								</div>
-							</div>
-							<div class="col-md-6"></div>
-						</div>
-					</fieldset>
-					{{ include('manifestation/_form.html.twig') }}
-				</div>
-			</div>
-		</div>
+		<div class="col-xs-6 col-md-offset-3">
+			<div class="col-md-12">
+				<fieldset>
+					<legend>Informations Générales</legend>
+					<div class="form-group">
+						<label>
+							Titre Fr
+						</label>
+						{{ form_widget(form.titreFr, {'attr': {'class': 'form-control', 'id': 'titre_fr'}}) }}
+					</div>
+					<div class="form-group">
+						<label>
+							Titre De
+						</label>
+						{{ form_widget(form.titreDe, {'attr': {'class': 'form-control', 'id': 'titre_de'}}) }}
+					</div>
+					<div class="form-group">
+						<label>
+							Titre En
+						</label>
+						{{ form_widget(form.titreEn, {'attr': {'class': 'form-control', 'id': 'titre_en'}}) }}
+					</div>
+					<hr>
+					<legend>Dates et Durée</legend>
+					<div class="form-group">
+						<label>
+							Date Début
+						</label>
+						{{ form_widget(form.date_debut, {'attr': {'class': 'form-control', 'id': "date_debut"}}) }}
+					</div>
+					<div class="form-group">
+						<label>
+							Date Fin
+						</label>
 
-	</form>
-{% endblock %}
+						{{ form_widget(form.date_fin, {'attr': {'class': 'form-control', 'id': "date_fin"}}) }}
+					</div>
+					<div class="form-group">
+						<label>
+							Durée (jours)
+						</label>
+						{{ form_widget(form.duree, {'attr': {'class': 'form-control', 'id': 'duree'}}) }}
+					</div>
+					<div class="form-group">
+						{{ form_widget(form.justification_duree, {'attr': {'class': 'form-control', 'id': 'justification_duree', 'style': 'display: none;', 
+						'placeholder' : 'veuillez justifier la durée'}}) }}
+					</div>
+
+					<hr>
+					<legend>Localisations</legend>
+					<div class="form-group">
+						<label>
+							Pays
+						</label>
+						{{ form_widget(form.countries, {'attr': {'class': 'form-control', 'id': 'pays'}}) }}
+					</div>
+
+					<div class="form-group" id="form-ville" style="display: none;">
+						<label>
+							Ville
+						</label>
+						{{ form_widget(form.ville, {'attr': {'class': 'form-control', 'id': 'ville'}}) }}
+					</div>
+
+					<div class="form-group">
+						<label>
+							Ajouter une autre ville
+						</label>
+						<button type="button" class="btn btn-primary" id="btn-add">+</button>
+
+						<div class="form-group" id="autre-ville" style="display: none;">
+
+							<label>
+								Autre Ville
+							</label>
+							{{ form_widget(form.autre_ville, {'attr': {'class': 'form-control', 'id': 'autre_ville'}}) }}
+						</div>
+
+						<div class="form-group mt-4">
+							{{ include('manifestation/_form.html.twig') }}
+						</div>
+
+					</fieldset>
+				</div>
+			</div>
+
+		</form>
+
+		<script>
+			// Sélectionne l'élément <select> pour les pays
+var PaysSelect = document.querySelector('#manifestation_countries');
+var VilleSelect = document.querySelector('#manifestation_ville');
+var FormVille = document.querySelector('#form-ville');
+var FormVilles = document.querySelector('#form-villes');
+var btnAdd = document.querySelector('#btn-add');
+var autreVille = document.querySelector('#autre-ville');
+
+btnAdd.addEventListener('click', function () {
+autreVille.style.display = 'block';
+});
+PaysSelect.addEventListener('change', function () {
+var selectCountries = Array.from(this.selectedOptions).map(option => option.value);
+var selectedCountryId = this.value;
+VilleSelect.innerHTML = '';
+
+// Afficher le champ ville
+if (selectedCountryId == 63 || selectedCountryId == 55) {
+FormVille.style.display = 'block';
+} else {
+FormVille.style.display = 'none';
+}
+
+// Ajouter une condition pour charger les villes de l'Allemagne et de la France
+if (selectCountries.includes('63') && selectCountries.includes('55')) {
+fetch('http://127.0.0.1:8000/api/villes/63').then(responseGermany => {
+if (!responseGermany.ok) {
+throw new Error('Erreur de réseau');
+}
+return responseGermany.json();
+}).then(dataGermany => {
+dataGermany.forEach(ville => {
+var option = document.createElement('option');
+option.value = ville.id;
+option.textContent = ville.nom;
+VilleSelect.appendChild(option);
+});
+}).catch(error => console.error('Erreur lors de la récupération des villes d\'Allemagne:', error));
+
+fetch('http://127.0.0.1:8000/api/villes/55').then(responseFrance => {
+if (!responseFrance.ok) {
+throw new Error('Erreur de réseau');
+}
+return responseFrance.json();
+}).then(dataFrance => {
+dataFrance.forEach(ville => {
+var option = document.createElement('option');
+option.value = ville.id;
+option.textContent = ville.nom;
+VilleSelect.appendChild(option);
+});
+}).catch(error => console.error('Erreur lors de la récupération des villes de France:', error));
+} else { // Si les deux pays ne sont pas sélectionnés, charger les villes normalement
+selectCountries.forEach(countryId => {
+fetch('http://127.0.0.1:8000/api/villes/' + countryId).then(response => {
+if (!response.ok) {
+throw new Error('Erreur de réseau');
+}
+return response.json();
+}).then(data => {
+data.forEach(ville => {
+var option = document.createElement('option');
+option.value = ville.id;
+option.textContent = ville.nom;
+VilleSelect.appendChild(option);
+});
+}).catch(error => console.error('Erreur lors de la récupération des villes:', error));
+});
+}
+});
+		</script>
+
+
+	{% endblock %}
