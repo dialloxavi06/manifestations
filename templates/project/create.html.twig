@@ -1,53 +1,82 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Créer un Projet
+{% block title %}
+	{{'Créer un Projet'|trans }}
 {% endblock %}
+
 
 {% block body %}
 	<div class="container">
-		<h1>Créer un nouveau Projet</h1>
+		<h1>{{'Créer un nouveau Projet' |trans }}</h1>
+
 	</div>
 
 	<form id="regForm" action="{{ path('app_project_create') }}" method="post">
-		<div class="row setup-content" id="step-1">
-			<div class="col-xs-6 col-md-offset-3">
-				<div class="col-md-12">
-					<h3>Informations du Projet</h3>
-					{{ form_row(form.num_dossier) }}
-					{{ form_row(form.titreFr) }}
-					{{ form_row(form.titreDe) }}
-					{{ form_row(form.titreEn) }}
-					{{ form_row(form.type_project) }}
-				</div>
-			</div>
-		</div>
-		<div class="row setup-content" id="step-2">
-			<div class="col-xs-6 col-md-offset-3">
-				<div class="col-md-12">
-					<h3>Choix de la discipline</h3>
-					<div class="row">
-						<div
-							class="col-md-6">{# 
-																																					 #}
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+		<fieldset>
+			<legend>{{'Informations du Projet'|trans }}</legend>
 
-		<div class="row setup-content" id="step-3">
-			<div class="col-xs-6 col-md-offset-3">
-				<div class="col-md-12">
-					<h3>Information des Porteurs de Projet</h3>
-					<div class="row">
-						<div
-							class="col-md-6"><!-- Ajoute tes champs ici -->
+			<div class="row setup-content" id="step-1">
+				<div class="col-xs-6 col-md-offset-3">
+					<div class="col-md-12">
+						<div class="form-group">
+							<label>
+								{{'Titre Fr'|trans }}
+							</label>
+							{{ form_widget(form.titreFr) }}
+						</div>
+						<div class="form-group">
+							<label>
+								{{'Titre De'|trans }}
+							</label>
+							{{ form_widget(form.titreDe) }}
+						</div>
+						<div class="form-group">
+							<label>
+								{{'Titre En'|trans }}
+							</label>
+							{{ form_widget(form.titreEn) }}
+						</div>
+						<div class="form-group">
+							<label>
+								{{'Type de Projet'|trans }}
+							</label>
+							{{ form_widget(form.type_project) }}
 						</div>
 					</div>
-					<button class="btn btn-success btn-lg pull-right" type="submit">{{ button_label|default('Enregistrer') }}</button>
 				</div>
 			</div>
-		</div>
-		{{ form_widget(form) }}
-	</form>
-{% endblock %}
+		</fieldset>
+
+		<fieldset>
+			<legend>{{'Choix de la discipline' |trans}}</legend>
+
+			<div class="row setup-content" id="step-2">
+				<div class="col-xs-6 col-md-offset-3">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="col-md-6">
+								<label>{{'Discipline' |trans}}</label>
+								{{ form_row(form.discipline) }}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<div class="row setup-content" id="step-3">
+				<div class="col-xs-6 col-md-offset-3">
+					<div class="col-md-12">
+						<div class="row">
+							<div class="form-group mt-4">
+								<button class="btn btn-success btn-lg pull-right" type="submit">{{ button_label|default('Enregistrer') |trans}}</button>
+								<a href="{{ path('app_project_index') }}" class="btn btn-secondary btn-lg pull-left">{{ button_label|default('Retour') }}</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</fieldset>
+			{{ form_widget(form) }}
+		</form>
+	{% endblock %}

@@ -14,18 +14,21 @@ use Symfony\Component\Routing\Attribute\Route;
 use App\Form\AnnulationType;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
-use App\Entity\Project;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 
 
 #[Route('/manifestation', name: 'app_manifestation_')]
+#[
+    IsGranted('ROLE_USER', statusCode: 403, message: 'Vous n\'êtes pas autorisé à accéder à cette page.'),
+]
 class ManifestationController extends AbstractController
 {
     #[Route('/', name: 'index', methods: ['GET', 'POST'])]
     public function index(ManifestationRepository $manifestationRepository, Request $request): Response
     {
         $page = $request->query->get('page', 1);
-        $limit = 1;
+        $limit = 3;
         $manifestations = $manifestationRepository->paginateManifestations($page, $limit);
         $totalPages = ceil($manifestations->getTotalItemCount() / $limit);
         return $this->render('manifestation/index.html.twig', [
@@ -96,50 +99,5 @@ class ManifestationController extends AbstractController
         }
 
         return $this->redirectToRoute('app_manifestation_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    #[Route('/{id}/annulation', name: 'annulation')]
-    public function annulation(Request $request, Manifestation $manifestation, MailerInterface $mailer, EntityManagerInterface $entityManager): Response
-    {
-        // Charger les valeurs actuelles de la manifestation dans le formulaire d'annulation
-        $form = $this->createForm(AnnulationType::class, $manifestation);
-        $form->handleRequest($request);
-
-        // Rechercher le statut par défaut
-        $defaultStatus = $entityManager->getRepository(Status::class)->findOneBy(['nom' => 'En cours de rétractation']);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            // Supprimer tous les statuts existants de la manifestation
-            $manifestation->removeAllStatus();
-
-            // Mettre à jour les informations de l'annulation
-            $data = $form->getData();
-            $manifestation->setMotifAnnulation($data->getMotifAnnulation());
-            $manifestation->setDescriptionAnnulation($data->getDescriptionAnnulation());
-            $manifestation->addStatus($defaultStatus);
-
-            // Envoyer l'email de confirmation
-            try {
-                $email = (new Email())
-                    ->to('diallo@dfh-ufa.org')
-                    ->from('diallox@gmail.com')
-                    ->subject($manifestation->getMotifAnnulation())
-                    ->text($manifestation->getMotifAnnulation())
-                    ->html('<p>' . $manifestation->getMotifAnnulation() . '</p>');
-                $mailer->send($email);
-
-                $entityManager->flush();
-
-                $this->addFlash('success', 'Votre message a bien été envoyé. Merci / Ihre Nachricht wurde erfolgreich gesendet. Danke!');
-                return $this->redirectToRoute('app_manifestation_index');
-            } catch (\Exception $e) {
-                $this->addFlash('error', 'Une erreur est survenue. Veuillez réessayer / Es ist ein Fehler aufgetreten. Bitte versuchen Sie es erneut.');
-            }
-        }
-
-        return $this->render('manifestation/annulation.html.twig', [
-            'form' => $form->createView(),
-            'manifestations' => $manifestation,
-        ]);
     }
 }

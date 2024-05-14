@@ -51,7 +51,7 @@
       </trans-unit>
       <trans-unit id="26IEhpa" resname="__Liste des Manifestations">
         <source>__Liste des Manifestations</source>
-        <target>Liste der Manifestationen</target>
+        <target>Veranstaltungen</target>
       </trans-unit>
       <trans-unit id="vguEhOI" resname="_Titre">
         <source>_Titre</source>
@@ -147,7 +147,7 @@
       </trans-unit>
       <trans-unit id="j.BCCkt" resname="Manifestation">
         <source>Manifestation</source>
-        <target>Manifestation</target>
+        <target>Veranstaltung</target>
       </trans-unit>
       <trans-unit id="uq3fcPt" resname="Type">
         <source>Type</source>
@@ -215,23 +215,23 @@
       </trans-unit>
       <trans-unit id="QuN2BLY" resname="Modifier">
         <source>Modifier</source>
-        <target>__Modifier</target>
+        <target>Ändern</target>
       </trans-unit>
       <trans-unit id="QLeNDdM" resname="Retour à la liste">
         <source>Retour à la liste</source>
-        <target>__Retour à la liste</target>
+        <target>Zurück zur Liste</target>
       </trans-unit>
       <trans-unit id="rCTIJV3" resname="Titre francais">
         <source>Titre francais</source>
-        <target>__Titre francais</target>
+        <target>Französischer Titel</target>
       </trans-unit>
       <trans-unit id="c8BMBva" resname="Titre Allemand">
         <source>Titre Allemand</source>
-        <target>__Titre Allemand</target>
+        <target>Deutscher Titel</target>
       </trans-unit>
       <trans-unit id="4tQxzSK" resname="Titre Anglais">
         <source>Titre Anglais</source>
-        <target>__Titre Anglais</target>
+        <target>Englischer Titel</target>
       </trans-unit>
     </body>
   </file>

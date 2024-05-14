@@ -34,13 +34,15 @@
 
 
 {% block body %}
-<a class="btn btn-primary nouvelle-manifestation" id="nouvelle-manifestation" href="{{ path('app_manifestation_new') }}">Nouvelle Manifestation</a>
+<a class="btn btn-primary nouvelle-manifestation" id="nouvelle-manifestation" href="{{ path('app_manifestation_new') }}">{{'Nouvelle Manifestation'|trans }}</a>
+
+
 <h1>{{ 'Liste des Manifestations'|trans }}</h1>
 
 <table class="table">
 	<thead>
 		<tr>
-			<th>{{ 'Titre Francais'|trans }}</th>
+			<th>{{ 'Titre français'|trans }}</th>
 			<th>{{ 'Titre Allemand'|trans }}</th>
 			<th>{{ 'Titre Anglais'|trans }}</th>
 			<th>{{ 'Debut'|trans }}</th>
@@ -62,10 +64,14 @@
 				<td>{{ manifestation.titreEn }}</td>
 				<td>{{ manifestation.dateDebut ? manifestation.dateDebut|date('d-m-y') : '' }}</td>
 				<td>{{ manifestation.dateFin ? manifestation.dateFin|date('d-m-y') : '' }}</td>
-				<td>{{ manifestation.duree }}</td>
+				<td>{{ manifestation.duree }}
+					{{ 'jours' | trans }}</td>
+
+
 				<td>
 					{% for country in manifestation.countries %}
-						{{ country.nom }}
+						{{ country.nom |trans }}
+
 					{% endfor %}
 				</td>
 				<td>
@@ -78,21 +84,29 @@
 				<td>
 					{% for statut in manifestation.statuses %}
 						{% if statut.nom == 'En attente' %}
-							<span class="badge badge-warning">{{ statut.nom }}</span>
+							<span class="badge badge-warning">{{ statut.nom |trans }}</span>
+
 						{% elseif statut.nom == 'Accepté(e)' %}
-							<span class="badge badge-success">{{ statut.nom }}</span>
+							<span class="badge badge-success">{{ statut.nom |trans}}</span>
+
 						{% elseif statut.nom == 'Refusé(e)' %}
-							<span class="badge badge-danger">{{ statut.nom }}</span>
+							<span class="badge badge-danger">{{ statut.nom |trans}}</span>
+
 						{% elseif statut.nom == 'Annulé(e)' %}
-							<span class="badge badge-danger">{{ statut.nom }}</span>
+							<span class="badge badge-danger">{{ statut.nom |trans}}</span>
+
 						{% elseif statut.nom == 'En cours d\'évaluation' %}
-								<span class="badge badge-danger">{{ statut.nom }}</span>
+						<span class="badge badge-danger">{{ statut.nom|trans }}</span>
+
 						{% elseif statut.nom == 'Soutenu' %}
-								<span class="badge badge-danger">{{ statut.nom }}</span>
+						<span class="badge badge-danger">{{ statut.nom |trans}}</span>
+
 						{% elseif statut.nom == 'Non soutenu' %}
-								<span class="badge badge-danger">{{ statut.nom }}</span>
-							{% elseif statut.nom == 'En cours de rétractation' %}
-							<span class="badge badge-danger">{{ statut.nom }}</span>
+						<span class="badge badge-danger">{{ statut.nom |trans}}</span>
+
+						{% elseif statut.nom == 'En cours de rétractation' %}
+						<span class="badge badge-danger">{{ statut.nom |trans}}</span>
+
 
 						{% endif %}
 						{% endfor %}
@@ -111,12 +125,6 @@
 									<path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325"/>
 								</svg>
 							</a>
-
-							<a class="demander-annulation" href="{{ path('app_manifestation_annulation', {'id': manifestation.id}) }}">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle" viewbox="0 0 16 16">
-									<path d="M7.5 2a.5.5 0 0 1 .492.41l.008.09v6a.5.5 0 0 1-.41.492l-.09.008H7.5a.5.5 0 0 1-.492-.41L7 8.5V2.5a.5.5 0 0 1 .5-.5zM8 11a.5.5 0 0 1 .5.5v.5a.5.5 0 0 1-.5.5h-.5a.5.5 0 0 1-.5-.5v-.5a.5.5 0 0 1 .5-.5h.5zm7.854-1.854a.5.5 0 0 1 0 .707L9.561 13.75a1.5 1.5 0 0 1-2.122 0L.146 6.854a.5.5 0 1 1 .708-.708L7.5 11.293l7.646-7.647a.5.5 0 0 1 .708 0z"/>
-								</svg>
-							</a>
 						</div>
 					</td>
 				</tr>
@@ -133,7 +141,8 @@
 
 <div class="pagination-container">
 	{% if page != 1 %}
-		<a class="btn btn-primary" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'page': page - 1})) }}">Précédent</a>
+<a class="btn btn-primary" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'page': page - 1})) }}">{{'Précédent' |trans}}</a>
+
 	{% endif %}
 
 	{% for i in 1..totalItems %}
@@ -145,8 +154,10 @@
 	{% endfor %}
 
 	{% if page != totalItems %}
-		<a class="btn btn-primary" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'page': page + 1})) }}">Suivant</a>
-	{% endif %}
+<a class="btn btn-primary" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'page': page + 1})) }}">{{'Suivant' |trans}}
+</a>
+
+	{% endif %} 
 </div>
 
 

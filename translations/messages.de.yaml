@@ -1,6 +1,6 @@
-Your Name: Ihr Name
+'Your Name': 'Ihr Name'
 'Your Email': 'Ihre E-Mail-Adresse'
-Your message: Ihre Nachricht
+'Your message': 'Ihre Nachricht'
 Send: Senden
 'Thank you for your message': 'Vielen Dank für Ihre Nachricht'
 Password: Passwort
@@ -8,39 +8,130 @@ Password: Passwort
 'CREATE AN ACCOUNT': 'KONTO ERSTELLEN'
 Show: anzeigen
 Hide: verbergen
-Create an account: Konto erstellen
-__Liste des Manifestations: Liste der Manifestationen
+'Create an account': 'Konto erstellen'
+'__Liste des Manifestations': Veranstaltungen
 _Titre: Titel
 Debut: Beginn
 Fin: Ende
 Durée: Dauer
-Justification de la durée: Dauerbegründung
+'Justification de la durée': Dauerbegründung
 Id: Id
 actions: Aktionen
-Aucun Item Trouvé: Kein Element gefunden
-l'histoire contemporaine: Zeitgeschichte
-l'histoire de l'art: Kunstgeschichte
-l'histoire des sciences: Wissenschaftsgeschichte
-l'histoire des techniques: Technikgeschichte
-l'histoire économique: Wirtschaftsgeschichte
-l'histoire sociale: Sozialgeschichte
-Numéro Dossier: Aktenzeichen
+'Aucun Item Trouvé': 'Kein Element gefunden'
+"l'histoire contemporaine": Zeitgeschichte
+"l'histoire de l'art": Kunstgeschichte
+"l'histoire des sciences": Wissenschaftsgeschichte
+"l'histoire des techniques": Technikgeschichte
+"l'histoire économique": Wirtschaftsgeschichte
+"l'histoire sociale": Sozialgeschichte
+'Numéro Dossier': Aktenzeichen
 Titre: Titel
-Date de création: Erstellungsdatum
-Statut du projet: Projektstatus
-Type de projet: Projekttyp
-nouveau Projet: neues Projekt
+'Date de création': Erstellungsdatum
+'Statut du projet': Projektstatus
+'Type de projet': Projekttyp
+'nouveau Projet': 'neues Projekt'
 Actions: Aktionen
-Logged in as: Angemeldet als
+'Logged in as': 'Angemeldet als'
 Projet: Projekt
-Manifestation: Manifestation
+Manifestation: Veranstaltung
 Type: Typ
-Date de début: Startdatum
-Date de fin: Enddatum
+'Date de début': Startdatum
+'Date de fin': Enddatum
 Description: Beschreibung
 Lieu: Ort
 Organisateur: Organisator
 Pays: Land
 Ville: Stadt
-Sélectionner le pays: Land auswählen
-Justification pays tiers: Begründung für Drittländer
+'Sélectionner le pays': 'Land auswählen'
+'Justification pays tiers': 'Begründung für Drittländer'
+'Mannifestation Scientifique': 'Wissenschaftliche Veranstaltung'
+project: projekt
+manifestation: Veranstaltung
+register: registrieren
+login: 'anmelden '
+logout: abmelden
+Modifier: Ändern
+'Retour à la liste': 'Zurück zur Liste'
+'Titre français': 'Französische Titel'
+'Titre anglais': 'Englische Titel'
+'Titre Allemand': 'Deutscher Titel'
+'Liste des Manifestations': 'Liste der Veranstaltungen'
+'Liste des Projets': 'Liste der Projekte'
+ville: Stadt
+'Autre Villes': 'Andere Städte'
+pays: Land
+Statut: Status
+'Nouveau Projet': 'Neues Projekt'
+'Nouveau Manifestation': 'Neue Veranstaltung'
+'Nouveau Manifestation Scientifique': 'Neue wissenschaftliche Veranstaltung'
+'Titre francais': 'Französischer Titel'
+'Titre Anglais': 'Englischer Titel'
+'Sciences de l’ingénieur / Architecture': 'Ingenieurwissenschaften / Architektur'
+'Génie Civil': Bauingenieurwesen
+'Génie chimique et biotechnologique / Environnement / Énergies renouvelables': 'Bio-und Chemietechnik / Umwelt / Erneuerbare Energien'
+'Génie électrique et électrotechnique / Génie informatique': 'Elektro- und Informatiktechnik'
+'Génie mécanique et mécatronique / Sciences des Matériaux / Génie des Matériaux': 'Maschinenbau / Mechatronik / Materialwissenschaften / Werkstofftechnik'
+'Ingénierie technico-commerciale': Wirtschaftingenieurwesen
+Architecture: Architektur
+'Sciences / Mathématiques / Informatique': 'Naturwissenschaften / Mathematik / Informatik'
+'Biologie / Chimie': 'Biologie / Chimie'
+'Mathématiques / Physique': 'Mathematik / Physik'
+'Sciences de la vie': Naturwissenschaften
+Informatique: Informatik
+'Sciences de la vigne': Weinbau
+'Économie et Gestion': Wirtschaftwissenschaften
+'Économie / Gestion': 'Volkswirtschaft / Betriebswirtschaft'
+Tourisme: Tourismus
+Droit: Recht
+'Droit européen / international': 'Europäisches / internationales Recht'
+'Droit franco-allemand': 'Französisches / Allemandes Recht'
+'Droit public': 'Öffentliches Recht'
+'Droit international': 'Internationales Recht'
+'Sciences humaines et sociales': 'Geistes- und Sozialwissenschaften'
+Histoire: Geschichtewissenschaften
+'Études interculturelles': 'Interkulturelle Studien'
+'Lettres / Langues / Communication': 'Literatur / Sprachen / Kommunikation'
+Musicologie: Musikwissenschaften
+'Sciences politiques et sciences sociales': 'Politikwissenschaften und Sozialwissenschaften'
+Journalisme: Journalismus
+'Culture / Art & Média': 'Kultur / Kunst & Medien'
+'Administration publique / Management': 'Öffentliche Verwaltung / Management'
+Philosophie: Philosophie
+'Études culturelles': Kulturwissenschaften
+'Sciences du langage, linguistique': 'Sprachwissenschaften, Linguistik'
+'Histoire ancienne / Sciences de l’antiquité': 'Alte Geschichte / Altertumswissenschaften'
+'Formation des enseignants': Lehrerausbildung
+Médecine: Gesundheitswissenschaften/Medizin
+_Médecine: Medizin
+Interdisciplinaire: Interdisciplinär
+'Nouvelle Manifestation': 'Neue Veranstaltung'
+Précédent: Vorheriges
+Suivant: Nächstes
+'Aucun projet trouvé': 'Kein Projekt gefunden'
+'Créer un nouveau projet': 'Neues Projekt erstellen'
+'Créer une nouvelle manifestation': 'Neue Veranstaltung erstellen'
+'Créer une nouvelle manifestation scientifique': 'Neue wissenschaftliche Veranstaltung erstellen'
+France: Frankreich
+Germany: Deutschland
+En cours d'évaluation: "In Bearbeitung"
+jours: Tage
+En cours de rétractation: "In Rückzug"
+En cours de validation: "In Validierung"
+Annulé(e): Abgebrochen
+Accepté(e): Akzeptiert
+Refusé(e): Abgelehnt
+Enregistrer : Speichern
+Créer un Projet: Projekt erstellen
+Créer un nouveau Projet: Neues Projekt erstellen
+Créer une Manifestation: Veranstaltung erstellen
+Créer une Manifestation Scientifique: wissenschaftliche Veranstaltung erstellen
+Informations du Projet: Projektinformationen
+Titre Fr : Titel Fr
+Titre En : Titel En
+Titre De : Titel De
+Type de Projet : Projekttyp
+Choix de la discipline : Disziplinauswahl
+Information des Porteurs de Projet: Informationen des Projektträgers
+Sélectionner une discipline : Wählen Sie eine Disziplin aus
+Discipline : Disziplin
+

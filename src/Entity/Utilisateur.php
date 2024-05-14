@@ -7,9 +7,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Length;
+
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_USERNAME', fields: ['username'])]
 #[UniqueEntity(fields: ['username'], message: 'There is already an account with this username')]
 class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -19,6 +21,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180)]
+    #[NotBlank(message: 'Please enter a username')]
     private ?string $username = null;
 
     /**
@@ -31,15 +34,21 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
+    #[NotBlank(message: 'Please enter a password')]
+    #[Length(min: 6, minMessage: 'Your password should be at least {{ limit }} characters long')]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[NotBlank(message: 'Please enter an email')]
+    #[Length(min: 6, minMessage: 'Your email should be at least {{ limit }} characters long')]
     private ?string $email = null;
 
     #[ORM\Column(type: 'boolean')]
     private $isVerified = false;
 
-  
+    #[ORM\OneToOne(targetEntity: Kontakt::class, inversedBy: 'utilisateur', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(name: 'kontakt_id', referencedColumnName: 'id')]
+    private ?Kontakt $kontakt = null;
 
     public function getId(): ?int
     {
@@ -65,7 +74,7 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      */
     public function getUserIdentifier(): string
     {
-        return (string) $this->username;
+        return (string) $this->email;
     }
 
     /**
@@ -140,5 +149,15 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-  
+    public function getKontakt(): ?Kontakt
+    {
+        return $this->kontakt;
+    }
+
+    public function setKontakt(?Kontakt $kontakt): static
+    {
+        $this->kontakt = $kontakt;
+
+        return $this;
+    }
 }

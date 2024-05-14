@@ -1,19 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-	{{project.titre}}
+	{{project.titreFr}}
 {% endblock %}
 
 {% block body %}
 
 	<h1>{{project.numDossier}}</h1>
-	<h2>{{project.titre}}</h2>
-	<p>{{project.description  |nl2br}}</p>
-
-	<p>
-		Créer une manifestation pour ce projet<a class="btn btn-secondary" href="{{ path('app_manifestation_index') }}">
-			ici</a>
-	</p>
-
+	<h2>{{project.titreFr}}</h2>
+	<p>{{ project.createdAt ? project.createdAt|date('Y-m-d') : '' }}</p>
 
 {% endblock %}

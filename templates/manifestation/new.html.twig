@@ -7,11 +7,20 @@
 	{{ parent() }}
 {% endblock %}
 {% block body %}
-	<h1>Créer une nouvelle Manifestation</h1>
+	<h1>Nouvelle Manifestation Scientifique</h1>
 	<form action="{{ path('app_manifestation_new') }}" method="post">
 		<div class="col-xs-6 col-md-offset-3">
 			<div class="col-md-12">
 				<fieldset>
+
+					<legend>
+						Choix du projet</legend>
+					<div class="form-group">
+						<label>
+							Projet
+						</label>
+						{{ form_widget(form.project, {'attr': {'class': 'form-control', 'id': 'projet'}}) }}
+					</div>
 					<legend>Informations Générales</legend>
 					<div class="form-group">
 						<label>
@@ -73,6 +82,13 @@
 						{{ form_widget(form.ville, {'attr': {'class': 'form-control', 'id': 'ville'}}) }}
 					</div>
 
+					<div class="form-group" id="justification_pays_tiers" style="display: none;">
+						<label>
+							Justification Pays Tiers
+						</label>
+						{{ form_widget(form.justification_pays_tiers, {'attr': {'class': 'form-control', 'id': 'justification_pays_tiers'}}) }}
+					</div>
+
 					<div class="form-group">
 						<label>
 							Ajouter une autre ville
@@ -89,6 +105,7 @@
 
 						<div class="form-group mt-4">
 							{{ include('manifestation/_form.html.twig') }}
+							<a href="{{ path('app_manifestation_index') }}" class="btn btn-secondary btn-lg pull-left">{{ button_label|default('Retour') }}</a>
 						</div>
 
 					</fieldset>
@@ -105,7 +122,10 @@ var FormVille = document.querySelector('#form-ville');
 var FormVilles = document.querySelector('#form-villes');
 var btnAdd = document.querySelector('#btn-add');
 var autreVille = document.querySelector('#autre-ville');
+var justificationPaysTiers = document.querySelector('#justification_pays_tiers');
 
+
+// Afficher le champs de Rajout d'une autre ville
 btnAdd.addEventListener('click', function () {
 autreVille.style.display = 'block';
 });
@@ -119,6 +139,13 @@ if (selectedCountryId == 63 || selectedCountryId == 55) {
 FormVille.style.display = 'block';
 } else {
 FormVille.style.display = 'none';
+}
+
+// si le pays est un pays tiers, afficher le champ justification
+if (selectedCountryId == 63 || selectedCountryId == 55) {
+justificationPaysTiers.style.display = 'none';
+} else {
+justificationPaysTiers.style.display = 'block';
 }
 
 // Ajouter une condition pour charger les villes de l'Allemagne et de la France
@@ -167,6 +194,38 @@ VilleSelect.appendChild(option);
 }).catch(error => console.error('Erreur lors de la récupération des villes:', error));
 });
 }
+});
+
+// Evenement sur les champs dates debut et date fin
+
+document.addEventListener('DOMContentLoaded', function () {
+var dateDebutInput = document.querySelector('#manifestation_date_debut');
+var dateFinInput = document.querySelector('#manifestation_date_fin');
+var dureeInput = document.querySelector('#manifestation_duree');
+var justificationDureeInput = document.querySelector('#manifestation_justification_duree');
+
+
+// Ajouter un écouteur d'événement au champ date_fin
+dateFinInput.addEventListener('change', function () { // Convertir les dates en objets Date
+var dateDebut = new Date(dateDebutInput.value);
+var dateFin = new Date(dateFinInput.value);
+
+// Calculer la différence en millisecondes
+var difference = dateFin - dateDebut;
+
+// Convertir la différence en jours
+var jours = difference / (1000 * 60 * 60 * 24);
+
+// Mettre à jour la valeur de l'input
+dureeInput.value = jours;
+
+// Afficher ou masquer le champ justification_duree
+if (jours > 20) {
+justificationDureeInput.style.display = 'Block';
+} else {
+justificationDureeInput.style.display = 'none';
+}
+});
 });
 		</script>
 

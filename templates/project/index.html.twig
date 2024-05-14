@@ -18,9 +18,13 @@
 			<th>{{ 'Titre français'|trans }}</th>
 			<th>{{ 'Titre Allemand'|trans }}</th>
 			<th>{{ 'Titre Anglais'|trans }}</th>
+			<th>{{ 'Discipline'|trans }}</th>
 			<th>{{ 'Date de création'|trans }}</th>
 			<th>{{ 'Statut du projet'|trans }}</th>
 			<th>{{ 'Type de projet'|trans }}</th>
+			<th>{{ 'Nos contact'|trans }}</th>
+			<th>
+				{{ 'Porteurs de Projet'|trans }}</th>
 			<th>{{ 'Actions'|trans }}</th>
 		</tr>
 	</thead>
@@ -32,59 +36,97 @@
 				<td>{{ project.titreFr }}</td>
 				<td>{{ project.titreDe }}</td>
 				<td>{{ project.titreEn }}</td>
+				{% if project.discipline is not null %}
+					{% set discipline = project.discipline.nom %}
+					<td>{{discipline |trans }}</td>
+				{% else %}
+					<td>N/A</td>
+				{% endif %}
 				<td>{{ project.createdAt |date('d/m/Y') }}</td>
 				<td>
 					{% if project.StatusProject is not empty %}
 						{% set status = project.StatusProject.nom %}
 						{% if status == 'En attente' %}
-							<span class="badge badge-warning">{{ status }}</span>
+							<span class="badge badge-warning">{{ status |trans }}</span>
+
 						{% elseif status == 'Accepté(e)' %}
 							<span class="badge badge-success">{{ status }}</span>
-						{% elseif status == 'Refusé(e)' or status == 'Annulé(e)' or status == 'En cours d\'évaluation' or status == 'Soutenu' or status == 'Non soutenu' or status == 'En cours de rétractation' %}
-            <span class="badge badge-danger">{{ status }}</span>
-        {% endif %}
-    {% else %}
-        N/A
-    {% endif %}
-</td>
-
-                    <td>
-                        {% if project.TypeProject is not null %}
-                            {{ project.TypeProject.nom }}
-                        {% else %}
-                            N/A
-                        {% endif %}
-                    </td>
-<td>
-	<div class="btn-group" role="group">
-		<a href="{{ path('app_project_show', {'id': project.id}) }}" class="btn btn-primary">
-			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewbox="0 0 16 16">
-				<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
-				<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
-			</svg>
-		</a>
-		<a href="{{ path('app_project_edit', {'id': project.id}) }}" class="btn btn-primary">
-			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewbox="0 0 16 16">
-				<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
-				<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
-			</svg>
-		</a>
-		<form action="{{ path('app_project_delete', {'id': project.id}) }}" method="POST">
-			<input type="hidden" name="_method" value="DELETE">
-			<button type="submit" class="btn btn-danger">
-				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewbox="0 0 16 16">
-					<path d="M5.5 5.5A.5.5 0 1 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"/>
-					<path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"/>
-				</svg>
-			</button>
-		</form>
-	</div>
-</td>
-
-
-                   
-                </tr>
+						{% elseif status == 'Refusé(e)' or status == 'Annulé(e)' 
+						or status == 'En cours d\'évaluation' 
+						or status == 'Soutenu' or status == 'Non soutenu' 
+						or status == 'En cours de rétractation' %}
+                        <span class="badge badge-danger">{{ status |trans}}</span>
+                      {% endif %}
+                   {% else %}
+                    N/A
+                  {% endif %}
+                </td>
+                 <td>
+                    {% if project.TypeProject is not null %}
+                        {{ project.TypeProject.nom }}
+                    {% else %}
+                        N/A
+                    {% endif %}
+                </td>
+				<td>
+					{% if project.kontakt is not empty %}
+						{% for kontakt in project.kontakt %}
+							{{ kontakt.nom }} {{ kontakt.prenom }} <br>
+						{% endfor %}
+					{% else %}
+						N/A
+					{% endif %}
+				</td>
+				<td>
+                  <a href="{{ path('app_project_new_kontakt', {'id': project.id}) }}" class="btn btn-primary" id="btn-add">+</a>
+				</td>
+			
+                <td>
+					<div class="btn-group" role="group">
+						<a href="{{ path('app_project_show', {'id': project.id}) }}" class="btn btn-primary">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewbox="0 0 16 16">
+								<path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
+								<path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8m8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7"/>
+							</svg>
+						</a>
+						<a href="{{ path('app_project_edit', {'id': project.id}) }}" class="btn btn-primary">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewbox="0 0 16 16">
+								<path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+								<path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z"/>
+							</svg>
+						</a>
+								<a class="btn btn-danger" href="{{ path('app_project_annulation', {'id': project.id}) }}">
+									<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash-fill" viewbox="0 0 16 16">
+										<path d="M5.5 3.5a.5.5 0 0 0-1 0V4H4a.5.5 0 0 0 0 1h8a.5.5 0 0 0 0-1h-.5V3.5a.5.5 0 0 0-1 0V4h-5a.5.5 0 0 0 0 1h.5v8a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2V4h.5a.5.5 0 0 0 0-1h-5a.5.5 0 0 0-.5.5V5H6V3.5zM4.293 15.293a1 1 0 0 1-1.414-1.414L10 6.586 11.414 8l-7.12 7.122a1 1 0 0 1-1.414 0z"/>
+									</svg>
+									Annuler
+								</a>
+					</div>
+                </td>     
+            </tr>
             {% endfor %}
         </tbody>
     </table>
+
+<div class="pagination-container">
+	{% if page != 1 %}
+		<a class="btn btn-primary" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'page': page - 1})) }}">{{'Précédent' |trans}}</a>
+
+	{% endif %}
+
+	{% for i in 1..totalPages %}
+		{% if i != page %}
+			<a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'page': i})) }}">{{ i }}</a>
+		{% else %}
+			<span>{{ i }}</span>
+		{% endif %}
+	{% endfor %}
+
+	{% if page != totalPages %}
+		<a class="btn btn-primary" href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'page': page + 1})) }}">{{'Suivant' |trans}}
+		</a>
+
+	{% endif %}
+</div>
+
 {% endblock %}

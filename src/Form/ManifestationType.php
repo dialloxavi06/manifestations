@@ -14,13 +14,23 @@ use App\Repository\CountriesRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use App\Entity\Ville;
 use App\Repository\VilleRepository;
+use App\Entity\Project;
 
 class ManifestationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('titreFr', TextType::class, ['label' => false])
+            ->add('project', EntityType::class, [
+                'class' => Project::class,
+                'choice_label' => function ($project) {
+                    return $project->getTitreFr() . ' / ' . $project->getTitreDe();
+                }
+            ])
+
+            ->add('titreFr', TextType::class, [
+                'label' => false
+            ])
             ->add('titreDe', TextType::class, ['label' => false])
             ->add('titreEn', TextType::class, ['label' => false])
             ->add('date_debut', DateType::class, [
@@ -47,7 +57,8 @@ class ManifestationType extends AbstractType
                     'rows' => 5,
                     'cols' => 33,
                     'id' => "justification_duree"
-                ]
+                ],
+                'required' => false
             ])
 
             ->add(
@@ -81,6 +92,15 @@ class ManifestationType extends AbstractType
                 'attr' => [
                     'id' => "autre_ville"
                 ]
+            ])
+            ->add('justification_pays_tiers', TextareaType::class, [
+                'attr' => [
+                    'rows' => 5,
+                    'cols' => 33,
+                    'id' => "justification_pays_tiers"
+                ],
+                'required' => false
+
             ]);
     }
 

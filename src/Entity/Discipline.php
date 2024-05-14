@@ -18,10 +18,17 @@ class Discipline
     #[ORM\Column(length: 255)]
     private ?string $nom = null;
 
+    /**
+     * @var Collection<int, Project>
+     */
+    #[ORM\OneToMany(mappedBy: 'discipline', targetEntity: Project::class)]
+    private Collection $projects;
+
 
 
     public function __construct()
     {
+        $this->projects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -39,5 +46,39 @@ class Discipline
         $this->nom = $nom;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Project>
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): static
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects->add($project);
+            $project->setDiscipline($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): static
+    {
+        if ($this->projects->removeElement($project)) {
+            // set the owning side to null (unless already changed)
+            if ($project->getDiscipline() === $this) {
+                $project->setDiscipline(null);
+            }
+        }
+
+        return $this;
+    }
+    public function __toString(): string
+    {
+        return $this->nom ?? '';
     }
 }

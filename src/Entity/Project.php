@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProjectRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 
@@ -43,13 +44,27 @@ class Project
     #[ORM\ManyToOne(inversedBy: 'projects')]
     private ?Status $status_project = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $motif_annulation = null;
 
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
+    private ?string $justification_annulation = null;
+
+    #[ORM\ManyToOne(inversedBy: 'projects', cascade: ['persist'])]
+    private ?Discipline $discipline = null;
+
+    /**
+     * @var Collection<int, Kontakt>
+     */
+    #[ORM\ManyToMany(targetEntity: Kontakt::class, inversedBy: 'projects')]
+    private Collection $kontakt;
 
     public function __construct()
     {
         $this->manifestations = new ArrayCollection();
         $this->createdAt = new \DateTimeImmutable();
         $this->updatedAt = new \DateTimeImmutable();
+        $this->kontakt = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -94,7 +109,7 @@ class Project
     {
         if (!$this->manifestations->contains($manifestation)) {
             $this->manifestations->add($manifestation);
-            $manifestation->setProjectId($this);
+            $manifestation->setProject($this);
         }
 
         return $this;
@@ -104,8 +119,8 @@ class Project
     {
         if ($this->manifestations->removeElement($manifestation)) {
             // set the owning side to null (unless already changed)
-            if ($manifestation->getProjectId() === $this) {
-                $manifestation->setProjectId(null);
+            if ($manifestation->getProject() === $this) {
+                $manifestation->setProject(null);
             }
         }
 
@@ -183,6 +198,72 @@ class Project
     public function setStatusProject(?Status $status_project): static
     {
         $this->status_project = $status_project;
+
+        return $this;
+    }
+
+    public function getMotifAnnulation(): ?string
+    {
+        return $this->motif_annulation;
+    }
+
+    public function setMotifAnnulation(?string $motif_annulation): static
+    {
+        $this->motif_annulation = $motif_annulation;
+
+        return $this;
+    }
+
+    public function getJustificationAnnulation(): ?string
+    {
+        return $this->justification_annulation;
+    }
+
+    public function setJustificationAnnulation(?string $justification_annulation): static
+    {
+        $this->justification_annulation = $justification_annulation;
+
+        return $this;
+    }
+
+    public function getMoisCreatedAt(): ?string
+    {
+        $moisCreatedAt = $this->createdAt->format('m');
+        return $moisCreatedAt;
+    }
+
+    public function getDiscipline(): ?Discipline
+    {
+        return $this->discipline;
+    }
+
+    public function setDiscipline(?Discipline $discipline): static
+    {
+        $this->discipline = $discipline;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Kontakt>
+     */
+    public function getKontakt(): Collection
+    {
+        return $this->kontakt;
+    }
+
+    public function addKontakt(Kontakt $kontakt): static
+    {
+        if (!$this->kontakt->contains($kontakt)) {
+            $this->kontakt->add($kontakt);
+        }
+
+        return $this;
+    }
+
+    public function removeKontakt(Kontakt $kontakt): static
+    {
+        $this->kontakt->removeElement($kontakt);
 
         return $this;
     }

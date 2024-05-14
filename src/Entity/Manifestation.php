@@ -34,7 +34,6 @@ class Manifestation
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $duree = null;
     #[ORM\Column(length: 255, nullable: true)]
-    #[Assert\NotBlank(message: 'Veuillez renseigner la justification de la durée')]
     private ?string $justification_duree = null;
     #[ORM\ManyToOne(inversedBy: 'manifestations')]
     private ?Project $project = null;
@@ -166,12 +165,12 @@ class Manifestation
         return $this;
     }
 
-    public function getProjectId(): ?Project
+    public function getProject(): ?Project
     {
         return $this->project;
     }
 
-    public function setProjectId(?Project $project): static
+    public function setProject(?Project $project): static
     {
         $this->project = $project;
 
@@ -250,7 +249,7 @@ class Manifestation
     {
         if ($this->date_debut && $this->date_fin) {
             $interval = $this->date_debut->diff($this->date_fin);
-            return $interval->format('%a jours');
+            return $interval->format('%a');
         }
 
         return null;

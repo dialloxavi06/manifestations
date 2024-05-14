@@ -1,0 +1,25 @@
+{% extends 'base.html.twig'%}
+
+{% block title %}
+	Annulation du Projet
+{% endblock %}
+
+{% block body %}
+	<h1>Annulation du Projet
+	</h1>
+	<p>Vous êtes sur le point d'annuler le projet suivant:
+		<strong>{{ project.numDossier }}</strong>
+	</p>
+	<p>Date de Création du projet:
+		{{ project.createdAt|date('d/m/Y') }}</p>
+
+	<p>Confirmez-vous cette action ?</p>
+
+	{{ form_start(form) }}
+	{{ form_row(form.motif_annulation) }}
+	{{ form_row(form.justification_annulation) }}
+	<button type="submit">Confirmer</button>
+	<a href="{{ path('app_project_index') }}" class="btn btn-primary">Annuler</a>
+
+	{{ form_end(form) }}
+{% endblock %}

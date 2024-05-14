@@ -11,4 +11,79 @@ Hide: cacher
 'Create an account': 'Créer un compte'
 'List of manifestations': 'Liste des manifestations'
 _Titre: Titre
-__Liste des Manifestations : Liste des Manifestations 
+'__Liste des Manifestations': 'Liste des Manifestations'
+'Mannifestation Scientifique': 'Mannifestation Scientifique'
+project: projet
+manifestation: manifestation
+register: Enregistrer
+login: Connecter
+logout: Déconnecter
+Debut: Début
+Fin: Fin
+Durée: Durée
+'Justification de la durée': 'Justification de la durée'
+actions: actions
+'Aucun Item Trouvé': 'Aucun Élement Trouvé'
+'Logged in as': 'Connecté en tant que'
+'Logged out': Déconnecté
+Modifier: Modifier
+'Retour à la liste': 'Retour à la liste'
+'nouveau Projet': 'nouveau Projet'
+'Numéro Dossier': 'Numéro Dossier'
+'Titre francais': 'Titre francais'
+'Titre Allemand': 'Titre Allemand'
+'Titre Anglais': 'Titre Anglais'
+'Date de création': 'Date de création'
+'Statut du projet': 'Statut du projet'
+'Type de projet': 'Type de projet'
+Actions: Actions
+'Liste des Manifestations': 'Liste des Manifestations'
+Pays: Pays
+ville: ville
+'Autre Villes': 'Autre Villes'
+Statut: Statut
+'Nouveau Projet': 'Nouveau Projet'
+'Titre français': 'Titre français'
+'Sciences de l’ingénieur / Architecture': 'Sciences de l’ingénieur / Architecture'
+'Génie Civil': 'Génie Civil'
+'Génie chimique et biotechnologique / Environnement / Énergies renouvelables': 'Génie chimique et biotechnologique / Environnement / Énergies renouvelables'
+'Génie électrique et électrotechnique / Génie informatique': 'Génie électrique et électrotechnique / Génie informatique'
+'Génie mécanique et mécatronique / Sciences des Matériaux / Génie des Matériaux': 'Génie mécanique et mécatronique / Sciences des Matériaux / Génie des Matériaux'
+'Ingénierie technico-commerciale': 'Ingénierie technico-commerciale'
+Architecture: Architecture
+'Sciences / Mathématiques / Informatique': 'Sciences / Mathématiques / Informatique'
+'Biologie / Chimie': 'Biologie / Chimie'
+'Mathématiques / Physique': 'Mathématiques / Physique'
+Informatique: Informatique
+'Sciences de la vigne': 'Sciences de la vigne'
+'Économie et Gestion': 'Économie et Gestion'
+'Économie / Gestion': 'Économie / Gestion'
+Tourisme: Tourisme
+Droit: Droit
+'Droit européen / international': 'Droit européen / international'
+'Droit franco-allemand': 'Droit franco-allemand'
+'Droit public': 'Droit public'
+'Sciences humaines et sociales': 'Sciences humaines et sociales'
+Histoire: Histoire
+'Études interculturelles': 'Études interculturelles'
+'Lettres / Langues / Communication': 'Lettres / Langues / Communication'
+Musicologie: Musicologie
+'Sciences politiques et sciences sociales': 'Sciences politiques et sciences sociales'
+Journalisme: Journalisme
+'Culture / Art & Média': 'Culture / Art & Média'
+'Administration publique / Management': 'Administration publique / Management'
+Philosophie: Philosophie
+'Études culturelles': 'Études culturelles'
+'Sciences du langage, linguistique': 'Sciences du langage, linguistique'
+'Histoire ancienne / Sciences de l’antiquité': 'Histoire ancienne / Sciences de l’antiquité'
+'Formation des enseignants': 'Formation des enseignants'
+Médecine: Médecine
+_Médecine: Médecine
+'Nouvelle Manifestation': 'Nouvelle Manifestation'
+Précédent: Précédent
+Suivant: Suivant
+Germany: Allemagne
+France: France
+En cours d'évaluation: "En cours d'évaluation"
+jours: jours
+Enregistrer: Enregistrer

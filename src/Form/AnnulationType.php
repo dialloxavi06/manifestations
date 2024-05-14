@@ -2,7 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Manifestation;
+use App\Entity\Project;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -18,7 +18,7 @@ class AnnulationType extends AbstractType
                 'label' => 'Motif d\'annulation',
                 'required' => true,
             ])
-            ->add('description_annulation', TextareaType::class, [
+            ->add('justification_annulation', TextareaType::class, [
                 'label' => 'Justification de cette Annulation',
                 'required' => true,
             ]);
@@ -27,7 +27,7 @@ class AnnulationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Manifestation::class,
+            'data_class' => Project::class,
         ]);
     }
 }

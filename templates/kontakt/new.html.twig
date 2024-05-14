@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ 'Ajouter un Contact'|trans }}
+{% endblock %}
+
+{% block body %}
+
+	{{ form_start(form) }}
+
+	<fieldset>
+		<legend>
+			{{'Institution formulant la demande' |trans}}</legend>
+		<div class="form-group">
+			<label>{{'Nom'|trans}}</label>
+			{{ form_widget(form.institution.nom) }}
+		</div>
+		<div class="form-group">
+			<label>{{'Type institution'|trans}}</label>
+			{{ form_widget(form.institution.type_institution) }}
+		</div>
+
+	</fieldset>
+
+	<fieldset>
+		<legend>{{'Informations du Contact'|trans}}</legend>
+
+		<div class="form-group">
+			<label>{{'Titre'|trans}}</label>
+			{{ form_widget(form.titre) }}
+		</div>
+		<div class="form-group">
+			<label>{{'Nom'|trans}}</label>
+			{{ form_widget(form.nom) }}
+		</div>
+		<div class="form-group																																																																																					                    ">
+			<label>{{'Prénom'|trans}}</label>
+			{{ form_widget(form.prenom) }}
+		</div>
+		<div class="form-group																																																																																					                    ">
+			<label>{{'Email'|trans}}</label>
+			{{ form_widget(form.email) }}
+		</div>
+		<div class="form-group																																																																																					                    ">
+			<label>{{'Téléphone'|trans}}</label>
+			{{ form_widget(form.telefone) }}
+		</div>
+
+	</fieldset>
+
+	{{ form_end(form) }}
+
+{% endblock %}

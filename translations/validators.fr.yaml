@@ -145,3 +145,8 @@ Error: Erreur
 'Please enter a password': '__Please enter a password'
 'Your password should be at least {{ limit }} characters': '__Your password should be at least {{ limit }} characters'
 'Besoin de choisir *quelque chose*': '__Besoin de choisir *quelque chose*'
+'Veuillez renseigner le titre en français': '__Veuillez renseigner le titre en français'
+'Veuillez renseigner le titre en allemand': '__Veuillez renseigner le titre en allemand'
+'Veuillez renseigner le titre en anglais': '__Veuillez renseigner le titre en anglais'
+'Veuillez renseigner la date de début': '__Veuillez renseigner la date de début'
+'Veuillez Choisir une ou plusieur ville': '__Veuillez Choisir une ou plusieur ville'

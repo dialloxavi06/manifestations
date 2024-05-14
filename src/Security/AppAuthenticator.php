@@ -26,17 +26,17 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     public const LOGIN_ROUTE = 'app_login';
 
     public function __construct(
-        private UrlGeneratorInterface $urlGenerator, 
+        private UrlGeneratorInterface $urlGenerator,
         private UtilisateurRepository $utilisateurRepository,
         private EntityManagerInterface $entityManager,
-        
-       )
-    {}
+
+    ) {
+    }
 
     public function authenticate(Request $request): Passport
     {
         $username = $request->getPayload()->getString('username');
-       
+
 
         return new Passport(
             new UserBadge($username, fn ($identifier) => $this->utilisateurRepository->findUtilisateurByEmail($identifier)),
@@ -54,9 +54,8 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        
-     return new RedirectResponse($this->urlGenerator->generate('app_manifestation_index'));
-        
+
+        return new RedirectResponse($this->urlGenerator->generate('app_project_index'));
     }
 
     protected function getLoginUrl(Request $request): string

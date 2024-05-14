@@ -1,0 +1,83 @@
+'Logged in as': 'Logged in as'
+Logout: Logout
+Login: Login
+'__Liste des Manifestations': '____Liste des Manifestations'
+_Titre: ___Titre
+Debut: Start
+Fin: End
+Durée: Duration
+'Justification de la durée': 'Justification of the duration'
+actions: actions
+Actions: Actions
+'Aucun Item Trouvé': 'No Item Found'
+'Mannifestation Scientifique': 'Scientic Event'
+project: project
+manifestation: __manifestation
+register: register
+Modifier: Modify
+'Retour à la liste': 'Back to list'
+'nouveau Projet': 'New Project'
+'Numéro Dossier': 'File Number'
+'Titre francais': 'French Title'
+'Titre Allemand': 'German Title'
+'Titre Anglais': 'English Title'
+'Date de création': 'Creation Date'
+'Date de modification': 'Modification Date'
+'Statut du projet': 'Project Status'
+'Type de projet': 'Project Type'
+'Create an account': 'Create an account'
+'Liste des Manifestations': 'List of Events'
+Pays: Country
+ville: city
+'Autre Villes': 'Other Cities'
+Statut: Status
+'Nouveau Projet': 'New Project'
+'Titre français': 'French Title'
+'Sciences de l’ingénieur / Architecture': 'Engenieering / Architecture'
+'Génie Civil': 'Civil Engineering'
+'Génie chimique et biotechnologique / Environnement / Énergies renouvelables': 'Chemical Engineering / Environment / Renewable Energy'
+'Génie électrique et électrotechnique / Génie informatique': 'Electrical Engineering / Computer Engineering'
+'Génie mécanique et mécatronique / Sciences des Matériaux / Génie des Matériaux': 'Mechanical Engineering / Materials Science / Materials Engineering'
+'Ingénierie technico-commerciale': 'Commercial Engineering'
+Architecture: Architecture
+'Sciences / Mathématiques / Informatique': 'Sciences / Mathématiques / Informatique'
+'Biologie / Chimie': 'Biologie / Chimie'
+'Mathématiques / Physique': 'Mathematique / Physics'
+Informatique: Informatique
+'Sciences de la vigne': 'Vine Sciences'
+'Économie et Gestion': 'Economy and Gestion'
+'Économie / Gestion': 'Economy / Gestion'
+Tourisme: Tourism
+Droit: Law
+'Droit européen / international': 'European / International Law'
+'Droit franco-allemand': 'French / German Law'
+'Droit public': 'Public Law'
+'Droit international': 'International Law'
+'Sciences humaines et sociales': 'Humanities and Social Sciences'
+Histoire: History
+'Études interculturelles': 'Intercultural Studies'
+'Histoire / Géographie': 'History / Geography'
+'Lettres / Langues / Communication': 'Letters / Languages / Communication'
+Musicologie: Musice
+'Sciences politiques et sciences sociales': 'Politics and Social Sciences'
+Journalisme: Journalism
+'Sciences de la vie': 'Life Sciences'
+'Culture / Art & Média': 'Culture / Art & Media'
+'Administration publique / Management': 'Public Administration / Management'
+Philosophie: Philosophy
+'Sciences sociales': 'Social Sciences'
+'Études culturelles': 'Cultural Studies'
+'Sciences du langage, linguistique': 'Language Sciences, Linguistics'
+'Histoire ancienne / Sciences de l’antiquité': 'Ancient History / Antiquity Sciences'
+'Formation des enseignants': 'Teacher Training'
+Médecine: Medicine
+'Sciences de la santé': 'Health Sciences'
+login: login
+logout: logout
+'Nouvelle Manifestation': 'New Event'
+Précédent: Previous
+Suivant: Next
+France: France
+Germany: Germany
+En cours d'évaluation : 'Evaluation in progress'
+jours: days
