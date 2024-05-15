@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdresseController!
+{% endblock %}
+
+{% block body %}
+
+	{{ form_start(form) }}
+
+	<fieldset>
+		<legend>
+			{{'Adresse'|trans}}</legend>
+		<div class="form-group">
+			<label>{{'Nom de la Rue'|trans}}</label>
+			{{ form_widget(form.nomRue) }}
+		</div>
+		<div class="form-group">
+			<label>{{'Numéro de la Rue'|trans}}</label>
+			{{ form_widget(form.numRue) }}
+		</div>
+		<div class="form-group
+				    ">
+			<label>{{'Code Postal'|trans}}</label>
+			{{ form_widget(form.codePostal) }}
+		</div>
+
+	{% endblock %}

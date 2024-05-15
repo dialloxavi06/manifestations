@@ -27,6 +27,9 @@ class Institution
     #[ORM\ManyToMany(targetEntity: Kontakt::class, mappedBy: 'institution')]
     private Collection $kontakts;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $adresse = null;
+
     public function __construct()
     {
         $this->kontakts = new ArrayCollection();
@@ -84,6 +87,18 @@ class Institution
         if ($this->kontakts->removeElement($kontakt)) {
             $kontakt->removeInstitution($this);
         }
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?string $adresse): static
+    {
+        $this->adresse = $adresse;
 
         return $this;
     }

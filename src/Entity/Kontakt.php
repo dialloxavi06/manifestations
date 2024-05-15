@@ -54,6 +54,9 @@ class Kontakt
     #[ORM\ManyToMany(targetEntity: Institution::class, inversedBy: 'kontakts')]
     private Collection $institution;
 
+    #[ORM\ManyToOne(inversedBy: 'kontakt')]
+    private ?Adresse $adresse = null;
+
     public function __construct()
     {
         $this->projet = new ArrayCollection();
@@ -231,6 +234,18 @@ class Kontakt
     public function removeInstitution(Institution $institution): static
     {
         $this->institution->removeElement($institution);
+
+        return $this;
+    }
+
+    public function getAdresse(): ?Adresse
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?Adresse $adresse): static
+    {
+        $this->adresse = $adresse;
 
         return $this;
     }

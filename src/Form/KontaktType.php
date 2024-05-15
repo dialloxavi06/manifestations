@@ -26,6 +26,7 @@ class KontaktType extends AbstractType
                     'label' => false
                 ]
             )
+            ->add('adresse', AdresseType::class, ['label' => false])
             ->add('Ajouter', SubmitType::class, [
                 'attr' => ['class' => 'btn btn-primary'],
             ]);

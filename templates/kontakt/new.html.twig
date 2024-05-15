@@ -16,6 +16,10 @@
 			{{ form_widget(form.institution.nom) }}
 		</div>
 		<div class="form-group">
+			<label>{{'Adresse'|trans}}</label>
+			{{ form_widget(form.institution.adresse) }}
+		</div>
+		<div class="form-group">
 			<label>{{'Type institution'|trans}}</label>
 			{{ form_widget(form.institution.type_institution) }}
 		</div>
@@ -45,9 +49,24 @@
 			<label>{{'Téléphone'|trans}}</label>
 			{{ form_widget(form.telefone) }}
 		</div>
+		<fieldset>
+			<legend>
+				{{'Adresse'|trans}}</legend>
+			<div class="form-group">
+				<label>{{'Nom de la Rue'|trans}}</label>
+				{{ form_widget(form.adresse.nom_rue) }}
+			</div>
+			<div class="form-group">
+				<label>{{'Numéro de la Rue'|trans}}</label>
+				{{ form_widget(form.adresse.numero) }}
+			</div>
+			<div class="form-group">
+				<label>{{'Code Postal'|trans}}</label>
+				{{ form_widget(form.adresse.code_postal) }}
+			</div>
+		</fieldset>
 
-	</fieldset>
 
-	{{ form_end(form) }}
+		{{ form_end(form) }}
 
-{% endblock %}
+	{% endblock %}

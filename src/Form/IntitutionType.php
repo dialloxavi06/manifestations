@@ -15,6 +15,7 @@ class IntitutionType extends AbstractType
     {
         $builder
             ->add('nom')
+            ->add('adresse', AdresseType::class, ['label' => false])
             ->add('type_institution', EntityType::class, [
                 'class' => TypeInstitution::class,
                 'choice_label' => 'nom',
