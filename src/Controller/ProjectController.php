@@ -33,6 +33,8 @@ class ProjectController extends AbstractController
         $limit = 3;
         $projects = $projectRepository->paginateProjects($page, $limit);
         $totalPages = ceil($projects->getTotalItemCount() / $limit);
+        // Récupération de l'utilisateur en cours
+
 
         return $this->render('project/index.html.twig', [
             'projects' => $projects,

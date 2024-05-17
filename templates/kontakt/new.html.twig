@@ -5,68 +5,75 @@
 {% endblock %}
 
 {% block body %}
+<div class="container">
+	<div class="row">
+		<div class="col-md-6 offset-md-3">
+			<h2>{{ 'Formulaire d\'Ajout de Contact'|trans }}</h2>
+                {{ form_start(form, {'attr': {'class': 'form'}}) }}
 
-	{{ form_start(form) }}
-
-	<fieldset>
-		<legend>
-			{{'Institution formulant la demande' |trans}}</legend>
-		<div class="form-group">
-			<label>{{'Nom'|trans}}</label>
-			{{ form_widget(form.institution.nom) }}
-		</div>
-		<div class="form-group">
-			<label>{{'Adresse'|trans}}</label>
-			{{ form_widget(form.institution.adresse) }}
-		</div>
-		<div class="form-group">
-			<label>{{'Type institution'|trans}}</label>
-			{{ form_widget(form.institution.type_institution) }}
-		</div>
-
-	</fieldset>
-
-	<fieldset>
-		<legend>{{'Informations du Contact'|trans}}</legend>
-
-		<div class="form-group">
-			<label>{{'Titre'|trans}}</label>
-			{{ form_widget(form.titre) }}
-		</div>
-		<div class="form-group">
-			<label>{{'Nom'|trans}}</label>
-			{{ form_widget(form.nom) }}
-		</div>
-		<div class="form-group																																																																																					                    ">
-			<label>{{'Prénom'|trans}}</label>
-			{{ form_widget(form.prenom) }}
-		</div>
-		<div class="form-group																																																																																					                    ">
-			<label>{{'Email'|trans}}</label>
-			{{ form_widget(form.email) }}
-		</div>
-		<div class="form-group																																																																																					                    ">
-			<label>{{'Téléphone'|trans}}</label>
-			{{ form_widget(form.telefone) }}
-		</div>
-		<fieldset>
-			<legend>
-				{{'Adresse'|trans}}</legend>
+                <fieldset>
+                    <legend>{{ 'Informations sur l\'Institution' |trans }}</legend>
 			<div class="form-group">
-				<label>{{'Nom de la Rue'|trans}}</label>
-				{{ form_widget(form.adresse.nom_rue) }}
+				{{ form_label(form.institution.nom) }}
+				{{ form_widget(form.institution.nom, {'attr': {'class': 'form-control'}}) }}
 			</div>
+			<fieldset>
+				<legend>{{ 'Adresse de l\'Institution' |trans }}</legend>
+				<div class="form-group">
+					{{ form_widget(form.institution.adresse, {'attr': {}}) }}
+				</div>
+				</fieldset>
+				<div class="form-group mt-4">
+					{{ form_label(form.institution.type_institution) }}
+					{{ form_widget(form.institution.type_institution, {'attr': {'class': 'form-control'}}) }}
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend>{{ 'Informations sur le Contact' |trans }}</legend>
+				<div class="form-group">
+					{{ form_label(form.titre) }}
+					{{ form_widget(form.titre, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.nom) }}
+					{{ form_widget(form.nom, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.prenom) }}
+					{{ form_widget(form.prenom, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.email) }}
+					{{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.telefone) }}
+					{{ form_widget(form.telefone, {'attr': {'class': 'form-control'}}) }}
+				</div>
+			</fieldset>
+
+			<fieldset>
+				<legend>{{ 'Adresse du Contact' |trans }}</legend>
+				<div class="form-group">
+					{{ form_label(form.adresse.nom_rue) }}
+					{{ form_widget(form.adresse.nom_rue, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.adresse.numero) }}
+					{{ form_widget(form.adresse.numero, {'attr': {'class': 'form-control'}}) }}
+				</div>
+				<div class="form-group">
+					{{ form_label(form.adresse.code_postal) }}
+					{{ form_widget(form.adresse.code_postal, {'attr': {'class': 'form-control'}}) }}
+				</div>
+			</fieldset>
+
 			<div class="form-group">
-				<label>{{'Numéro de la Rue'|trans}}</label>
-				{{ form_widget(form.adresse.numero) }}
+				{{ form_widget(form.Ajouter, {'attr': {'class': 'btn btn-primary'}}) }}
 			</div>
-			<div class="form-group">
-				<label>{{'Code Postal'|trans}}</label>
-				{{ form_widget(form.adresse.code_postal) }}
-			</div>
-		</fieldset>
 
-
-		{{ form_end(form) }}
-
-	{% endblock %}
+			{{ form_end(form) }}
+		</div>
+	</div>
+</div>{% endblock %}

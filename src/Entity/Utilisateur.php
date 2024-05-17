@@ -8,7 +8,6 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Validator\Constraints\Length;
 
 
 #[ORM\Entity(repositoryClass: UtilisateurRepository::class)]
@@ -34,13 +33,10 @@ class Utilisateur implements UserInterface, PasswordAuthenticatedUserInterface
      * @var string The hashed password
      */
     #[ORM\Column]
-    #[NotBlank(message: 'Please enter a password')]
-    #[Length(min: 6, minMessage: 'Your password should be at least {{ limit }} characters long')]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
     #[NotBlank(message: 'Please enter an email')]
-    #[Length(min: 6, minMessage: 'Your email should be at least {{ limit }} characters long')]
     private ?string $email = null;
 
     #[ORM\Column(type: 'boolean')]

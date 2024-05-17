@@ -84,13 +84,4 @@ class ProjectRepository extends ServiceEntityRepository
      * @param int $projectId L'ID du projet
      * @param int $kontaktId L'ID du contact
      */
-
-    public function addKontaktByProjectId(int $projectId, int $kontaktId): void
-    {
-        $project = $this->find($projectId);
-        $kontakt = $this->_em->getReference('App\Entity\Kontakt', $kontaktId);
-
-        $project->addKontakt($kontakt);
-        $this->_em->flush();
-    }
 }

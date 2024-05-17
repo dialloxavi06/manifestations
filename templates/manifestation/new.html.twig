@@ -67,167 +67,119 @@
 					</div>
 
 					<hr>
-					<legend>Localisations</legend>
+					<legend>Localisation France</legend>
 					<div class="form-group">
 						<label>
-							Pays
+							Région
 						</label>
-						{{ form_widget(form.countries, {'attr': {'class': 'form-control', 'id': 'pays'}}) }}
+						{{ form_widget(form.region) }}
 					</div>
-
-					<div class="form-group" id="form-ville" style="display: none;">
+					<div class="form-group">
+						<label>
+							Département
+						</label>
+						{{ form_widget(form.departement) }}
+					</div>
+					<div class="form-group">
 						<label>
 							Ville
 						</label>
-						{{ form_widget(form.ville, {'attr': {'class': 'form-control', 'id': 'ville'}}) }}
+						{{ form_widget(form.commune) }}
 					</div>
+					<hr>
+					<legend>Localisation Allemagne</legend>
 
-					<div class="form-group" id="justification_pays_tiers" style="display: none;">
-						<label>
-							Justification Pays Tiers
-						</label>
-						{{ form_widget(form.justification_pays_tiers, {'attr': {'class': 'form-control', 'id': 'justification_pays_tiers'}}) }}
-					</div>
-
-					<div class="form-group">
-						<label>
-							Ajouter une autre ville
-						</label>
-						<button type="button" class="btn btn-primary" id="btn-add">+</button>
-
-						<div class="form-group" id="autre-ville" style="display: none;">
-
+					<fieldset>
+						<legend>Choix Pays Tiers</legend>
+						<div class="form-group">
 							<label>
-								Autre Ville
+								Pays tiers
 							</label>
-							{{ form_widget(form.autre_ville, {'attr': {'class': 'form-control', 'id': 'autre_ville'}}) }}
+							{{ form_widget(form.countries) }}
 						</div>
-
-						<div class="form-group mt-4">
-							{{ include('manifestation/_form.html.twig') }}
-							<a href="{{ path('app_manifestation_index') }}" class="btn btn-secondary btn-lg pull-left">{{ button_label|default('Retour') }}</a>
-						</div>
-
 					</fieldset>
-				</div>
+					<hr>
+					<div class="form-group mt-4">
+						{{ include('manifestation/_form.html.twig') }}
+						<a href="{{ path('app_manifestation_index') }}" class="btn btn-secondary btn-lg pull-left">{{ button_label|default('Retour') }}</a>
+					</div>
+
+				</fieldset>
 			</div>
+		</div>
 
-		</form>
-
-		<script>
-			// Sélectionne l'élément <select> pour les pays
-var PaysSelect = document.querySelector('#manifestation_countries');
-var VilleSelect = document.querySelector('#manifestation_ville');
-var FormVille = document.querySelector('#form-ville');
-var FormVilles = document.querySelector('#form-villes');
-var btnAdd = document.querySelector('#btn-add');
-var autreVille = document.querySelector('#autre-ville');
-var justificationPaysTiers = document.querySelector('#justification_pays_tiers');
+	</form>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+var regionField = document.querySelector('#manifestation_region');
+var departementField = document.querySelector('#manifestation_departement');
+regionField.addEventListener('change', function () {
+var selectedRegion = this.value;
+console.log(selectedRegion);
+fetchDepartements(selectedRegion);
 
 
-// Afficher le champs de Rajout d'une autre ville
-btnAdd.addEventListener('click', function () {
-autreVille.style.display = 'block';
 });
-PaysSelect.addEventListener('change', function () {
-var selectCountries = Array.from(this.selectedOptions).map(option => option.value);
-var selectedCountryId = this.value;
-VilleSelect.innerHTML = '';
 
-// Afficher le champ ville
-if (selectedCountryId == 63 || selectedCountryId == 55) {
-FormVille.style.display = 'block';
-} else {
-FormVille.style.display = 'none';
-}
-
-// si le pays est un pays tiers, afficher le champ justification
-if (selectedCountryId == 63 || selectedCountryId == 55) {
-justificationPaysTiers.style.display = 'none';
-} else {
-justificationPaysTiers.style.display = 'block';
-}
-
-// Ajouter une condition pour charger les villes de l'Allemagne et de la France
-if (selectCountries.includes('63') && selectCountries.includes('55')) {
-fetch('http://127.0.0.1:8000/api/villes/63').then(responseGermany => {
-if (!responseGermany.ok) {
-throw new Error('Erreur de réseau');
-}
-return responseGermany.json();
-}).then(dataGermany => {
-dataGermany.forEach(ville => {
-var option = document.createElement('option');
-option.value = ville.id;
-option.textContent = ville.nom;
-VilleSelect.appendChild(option);
+departementField.addEventListener('change', function () {
+var selectedDepartement = this.value;
+fetchCommunes(selectedDepartement);
 });
-}).catch(error => console.error('Erreur lors de la récupération des villes d\'Allemagne:', error));
 
-fetch('http://127.0.0.1:8000/api/villes/55').then(responseFrance => {
-if (!responseFrance.ok) {
-throw new Error('Erreur de réseau');
-}
-return responseFrance.json();
-}).then(dataFrance => {
-dataFrance.forEach(ville => {
-var option = document.createElement('option');
-option.value = ville.id;
-option.textContent = ville.nom;
-VilleSelect.appendChild(option);
-});
-}).catch(error => console.error('Erreur lors de la récupération des villes de France:', error));
-} else { // Si les deux pays ne sont pas sélectionnés, charger les villes normalement
-selectCountries.forEach(countryId => {
-fetch('http://127.0.0.1:8000/api/villes/' + countryId).then(response => {
+function fetchDepartements(selectedRegion) {
+fetch('/api/regions/' + selectedRegion + '/departements').then(response => {
 if (!response.ok) {
 throw new Error('Erreur de réseau');
 }
 return response.json();
 }).then(data => {
-data.forEach(ville => {
+departementField.innerHTML = '';
+data.forEach(function (departement) {
 var option = document.createElement('option');
-option.value = ville.id;
-option.textContent = ville.nom;
-VilleSelect.appendChild(option);
+option.value = departement.id;
+option.textContent = departement.nom;
+departementField.appendChild(option);
 });
-}).catch(error => console.error('Erreur lors de la récupération des villes:', error));
-});
+}).catch(error => console.error('Erreur lors de la récupération des départements:', error));
 }
+
+function fetchCommunes(selectedDepartement) {
+fetch('/api/departements/' + selectedDepartement + '/villes').then(response => {
+if (!response.ok) {
+throw new Error('Erreur de réseau');
+}
+return response.json();
+}).then(data => {
+var communeSelect = document.querySelector('#manifestation_commune');
+communeSelect.innerHTML = '';
+data.forEach(function (commune) {
+var option = document.createElement('option');
+option.value = commune.id;
+option.textContent = commune.nom;
+communeSelect.appendChild(option);
 });
+}).catch(error => console.error('Erreur lors de la récupération des communes:', error));
+}
 
-// Evenement sur les champs dates debut et date fin
-
-document.addEventListener('DOMContentLoaded', function () {
 var dateDebutInput = document.querySelector('#manifestation_date_debut');
 var dateFinInput = document.querySelector('#manifestation_date_fin');
 var dureeInput = document.querySelector('#manifestation_duree');
 var justificationDureeInput = document.querySelector('#manifestation_justification_duree');
 
-
-// Ajouter un écouteur d'événement au champ date_fin
-dateFinInput.addEventListener('change', function () { // Convertir les dates en objets Date
+dateFinInput.addEventListener('change', function () {
 var dateDebut = new Date(dateDebutInput.value);
 var dateFin = new Date(dateFinInput.value);
-
-// Calculer la différence en millisecondes
 var difference = dateFin - dateDebut;
-
-// Convertir la différence en jours
 var jours = difference / (1000 * 60 * 60 * 24);
-
-// Mettre à jour la valeur de l'input
 dureeInput.value = jours;
-
-// Afficher ou masquer le champ justification_duree
 if (jours > 20) {
-justificationDureeInput.style.display = 'Block';
+justificationDureeInput.style.display = 'block';
 } else {
 justificationDureeInput.style.display = 'none';
 }
 });
 });
-		</script>
+	</script>
 
 
-	{% endblock %}
+{% endblock %}

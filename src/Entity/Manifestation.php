@@ -46,13 +46,9 @@ class Manifestation
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $justification_pays_tiers = null;
-    /**
-     * @var Collection<int, Ville>
-     */
-    #[ORM\ManyToMany(targetEntity: Ville::class, inversedBy: 'manifs')]
-    private Collection $ville;
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $autre_ville = null;
+
+    #[ORM\ManyToOne(targetEntity: Commune::class, inversedBy: 'manifs')]
+    private  $commune;
 
     /**
      * @var Collection<int, Status>
@@ -69,7 +65,6 @@ class Manifestation
 
     public function __construct()
     {
-        $this->ville = new ArrayCollection();
         $this->duree = $this->calculateDuration();
         $this->countries = new ArrayCollection();
         $this->statuses = new ArrayCollection();
@@ -189,30 +184,21 @@ class Manifestation
         return $this;
     }
 
-
-    /**
-     * @return Collection<int, Ville>
-     */
-    public function getVille(): Collection
+    public function getCommune(): ?Commune
     {
-        return $this->ville;
+        return $this->commune;
     }
 
-    public function addVille(Ville $ville): static
+
+    public function setCommune(?Commune $commune): static
     {
-        if (!$this->ville->contains($ville)) {
-            $this->ville->add($ville);
-        }
+        $this->commune = $commune;
 
         return $this;
     }
 
-    public function removeVille(Ville $ville): static
-    {
-        $this->ville->removeElement($ville);
 
-        return $this;
-    }
+
 
     /**
      * @return Collection<int, Countries>
@@ -253,18 +239,6 @@ class Manifestation
         }
 
         return null;
-    }
-
-    public function getAutreVille(): ?string
-    {
-        return $this->autre_ville;
-    }
-
-    public function setAutreVille(?string $autre_ville): static
-    {
-        $this->autre_ville = $autre_ville;
-
-        return $this;
     }
 
     /**

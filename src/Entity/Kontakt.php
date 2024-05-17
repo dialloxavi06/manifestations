@@ -195,6 +195,8 @@ class Kontakt
         return $this->projects;
     }
 
+
+
     public function addProject(Project $project): static
     {
         if (!$this->projects->contains($project)) {
