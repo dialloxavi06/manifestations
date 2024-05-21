@@ -17,9 +17,15 @@
 
 		{% block stylesheets %}{% endblock %}
 		{% block javascripts %}
-			{{ encore_entry_script_tags('app') }}
+			{% block importmap %}
+				{{ importmap('app') }}
+			{% endblock %}
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"></script>
 			<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/9hb7xKbuFRt2u6y5c2i3K4eY9Rt/u7z7m0epP0" crossorigin="anonymous"></script>
+			<script src="{{ asset('js/manif.js') }}"></script>
 		{% endblock %}
+
+
 	</head>
 	<body>
 		{% block navbar %}{% endblock %}

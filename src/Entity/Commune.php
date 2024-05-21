@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CommuneRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CommuneRepository::class)]
@@ -24,6 +26,20 @@ class Commune
 
     #[ORM\ManyToOne(inversedBy: 'communes')]
     private ?Region $region = null;
+
+    /**
+     * @var Collection<int, Manifestation>
+     */
+    #[ORM\ManyToMany(targetEntity: Manifestation::class, mappedBy: 'communes')]
+    private Collection $manifestations;
+
+
+
+
+    public function __construct()
+    {
+        $this->manifestations = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -74,6 +90,39 @@ class Commune
     public function setRegion(?Region $region): static
     {
         $this->region = $region;
+
+        return $this;
+    }
+
+
+    public function __toString()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * @return Collection<int, Manifestation>
+     */
+    public function getManifestations(): Collection
+    {
+        return $this->manifestations;
+    }
+
+    public function addManifestation(Manifestation $manifestation): static
+    {
+        if (!$this->manifestations->contains($manifestation)) {
+            $this->manifestations->add($manifestation);
+            $manifestation->addCommune($this);
+        }
+
+        return $this;
+    }
+
+    public function removeManifestation(Manifestation $manifestation): static
+    {
+        if ($this->manifestations->removeElement($manifestation)) {
+            $manifestation->removeCommune($this);
+        }
 
         return $this;
     }

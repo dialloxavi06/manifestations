@@ -67,11 +67,11 @@ class ProjectType extends AbstractType
             $rounde = '';
 
             if ($moisDepot >= 1 && $moisDepot <= 3) {
-                $rounde = '1';
+                $rounde = 'I';
             } elseif ($moisDepot >= 4 && $moisDepot <= 6) {
-                $rounde = '2';
+                $rounde = 'II';
             } elseif ($moisDepot >= 7 && $moisDepot <= 9) {
-                $rounde = '3';
+                $rounde = 'III';
             }
             $numDossierManifestation = 'NBV-' . $moisDepot . $typeProjet . '-' . $annee . '-' . $rounde;
 

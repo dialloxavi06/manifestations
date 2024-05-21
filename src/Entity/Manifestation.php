@@ -47,20 +47,31 @@ class Manifestation
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $justification_pays_tiers = null;
 
-    #[ORM\ManyToOne(targetEntity: Commune::class, inversedBy: 'manifs')]
-    private  $commune;
+
 
     /**
      * @var Collection<int, Status>
      */
     #[ORM\ManyToMany(targetEntity: Status::class, mappedBy: 'manifestations')]
-    private Collection $statuses;
+    private ?Collection $statuses;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $motif_annulation = null;
+
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description_annulation = null;
+
+    /**
+     * @var Collection<int, Staedte>
+     */
+    #[ORM\ManyToMany(targetEntity: Staedte::class, inversedBy: 'veranstaltungen')]
+    private Collection $staedte;
+
+    /**
+     * @var Collection<int, Commune>
+     */
+    #[ORM\ManyToMany(targetEntity: Commune::class, inversedBy: 'manifestations')]
+    private Collection $communes;
+
 
 
     public function __construct()
@@ -68,6 +79,8 @@ class Manifestation
         $this->duree = $this->calculateDuration();
         $this->countries = new ArrayCollection();
         $this->statuses = new ArrayCollection();
+        $this->staedte = new ArrayCollection();
+        $this->communes = new ArrayCollection();
     }
 
 
@@ -184,20 +197,6 @@ class Manifestation
         return $this;
     }
 
-    public function getCommune(): ?Commune
-    {
-        return $this->commune;
-    }
-
-
-    public function setCommune(?Commune $commune): static
-    {
-        $this->commune = $commune;
-
-        return $this;
-    }
-
-
 
 
     /**
@@ -244,7 +243,7 @@ class Manifestation
     /**
      * @return Collection<int, Status>
      */
-    public function getStatuses(): Collection
+    public function getStatuses(): ?Collection
     {
         return $this->statuses;
     }
@@ -278,18 +277,6 @@ class Manifestation
         }
     }
 
-    public function getMotifAnnulation(): ?string
-    {
-        return $this->motif_annulation;
-    }
-
-    public function setMotifAnnulation(?string $motif_annulation): static
-    {
-        $this->motif_annulation = $motif_annulation;
-
-        return $this;
-    }
-
     public function getDescriptionAnnulation(): ?string
     {
         return $this->description_annulation;
@@ -298,6 +285,54 @@ class Manifestation
     public function setDescriptionAnnulation(?string $description_annulation): static
     {
         $this->description_annulation = $description_annulation;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Staedte>
+     */
+    public function getStaedte(): Collection
+    {
+        return $this->staedte;
+    }
+
+    public function addStaedte(Staedte $staedte): static
+    {
+        if (!$this->staedte->contains($staedte)) {
+            $this->staedte->add($staedte);
+        }
+
+        return $this;
+    }
+
+    public function removeStaedte(Staedte $staedte): static
+    {
+        $this->staedte->removeElement($staedte);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Commune>
+     */
+    public function getCommunes(): Collection
+    {
+        return $this->communes;
+    }
+
+    public function addCommune(Commune $commune): static
+    {
+        if (!$this->communes->contains($commune)) {
+            $this->communes->add($commune);
+        }
+
+        return $this;
+    }
+
+    public function removeCommune(Commune $commune): static
+    {
+        $this->communes->removeElement($commune);
 
         return $this;
     }

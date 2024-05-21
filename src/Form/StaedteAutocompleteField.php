@@ -2,33 +2,30 @@
 
 namespace App\Form;
 
-use App\Entity\Commune;
+use App\Entity\Staedte;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\UX\Autocomplete\Form\AsEntityAutocompleteField;
 use Symfony\UX\Autocomplete\Form\BaseEntityAutocompleteType;
-use Symfony\Component\Validator\Constraints\Count;
-
 
 #[AsEntityAutocompleteField]
-class CommuneAutocompleteField extends AbstractType
+class StaedteAutocompleteField extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'class' => Commune::class,
-            'placeholder' => 'Choisissez une Ville ou plusieurs Villes',
+            'class' => Staedte::class,
+            'placeholder' => 'Choose a Staedte',
             'choice_label' => 'nom',
-            'searchable_fields' => ['nom'],
             'multiple' => true,
-            'constraints' => [
-                new Count(min: 1, minMessage: 'Vous devez sélectionner au moins une ville'),
-            ],
             'query_builder' => function ($er) {
-                return $er->createQueryBuilder('c')
-                    ->orderBy('c.nom', 'ASC');
+                return $er->createQueryBuilder('s')
+                    ->orderBy('s.nom', 'ASC');
             },
-            'required' => false,
+
+            // choose which fields to use in the search
+            // if not passed, *all* fields are used
+            // 'searchable_fields' => ['name'],
 
             // 'security' => 'ROLE_SOMETHING',
         ]);

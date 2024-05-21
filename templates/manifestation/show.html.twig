@@ -2,16 +2,24 @@
 
 {% block title %}Manifestation
 {% endblock %}
+{% block stylesheets %}
+	<style>
+		.button-container {
+			display: flex; /* Utilise la mise en page flexbox */
+		}
+
+		.button-wrapper {
+			margin-right: 10px; /* Espace entre les deux div */
+		}
+	</style>
+{% endblock %}
+
 
 {% block body %}
 	<h1>Manifestation</h1>
 
 	<table class="table">
 		<tbody>
-			<tr>
-				<th>Id</th>
-				<td>{{ manifestation.id }}</td>
-			</tr>
 			<tr>
 				<th>Titre Fr</th>
 				<td>{{ manifestation.titreFr }}</td>
@@ -20,18 +28,56 @@
 				<th>Titre De</th>
 				<td>{{ manifestation.titreDe }}</td>
 			</tr>
-
 			<tr>
 				<th>Date de début</th>
-				<td>{{ manifestation.dateDebut ? manifestation.dateDebut|date('Y-m-d H:i:s') : '' }}</td>
+				<td>{{ manifestation.dateDebut ? manifestation.dateDebut|date('d-m-Y') : '' }}</td>
 			</tr>
 			<tr>
 				<th>Date de fin</th>
-				<td>{{ manifestation.dateFin ? manifestation.dateFin|date('Y-m-d H:i:s') : '' }}</td>
+				<td>{{ manifestation.dateFin ? manifestation.dateFin|date('d-m-Y') : '' }}</td>
 			</tr>
 			<tr>
 				<th>Durée</th>
 				<td>{{ manifestation.duree }}</td>
+			</tr>
+
+
+			<tr>
+				<th>Ville France</th>
+				<td>
+					{% for commune in manifestation.communes %}
+						{{ commune }}
+						{% if not loop.last %},
+						{% endif %}
+					{% endfor %}
+				</td>
+			</tr>
+			<tr>
+				<th>Ville Allemagne</th>
+				<td>
+					{% for stadt in manifestation.staedte %}
+						{{ stadt }}
+						{% if not loop.last %},
+						{% endif %}
+					{% endfor %}
+				</td>
+			</tr>
+
+			<tr>
+				<th>Pays Tiers</th>
+				<td>
+					{% for country in manifestation.countries %}
+						{{ country.nom }}
+						{% if not loop.last %},
+						{% endif %}
+					{% endfor %}
+				</td>
+			</tr>
+
+
+			<tr>
+				<th>Justification Pays tiers</th>
+				<td>{{ manifestation.justificationPaysTiers }}</td>
 			</tr>
 			<tr>
 				<th>Justification de la durée</th>
@@ -40,9 +86,14 @@
 		</tbody>
 	</table>
 
-	<a class="btn btn-primary prevBtn btn-lg pull-left mg-r-2" href="{{ path('app_manifestation_index') }}">retour</a>
+	<div class="button-container">
+		<div class="button-wrapper">
+			<a class="btn btn-primary prevBtn btn-lg" href="{{ path('app_manifestation_index') }}">Retour</a>
+		</div>
+		<div class="button-wrapper">
+			{{ include('manifestation/_delete_form.html.twig') }}
+		</div>
+	</div>
 
-	<a class="btn btn-secondary prevBtn btn-lg pull-left" href="{{ path('app_manifestation_edit', {'id': manifestation.id}) }}">modifier</a>
 
-	{{ include('manifestation/_delete_form.html.twig') }}
 {% endblock %}

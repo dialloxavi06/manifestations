@@ -49,8 +49,9 @@
 			<th>{{ 'Fin'|trans }}</th>
 			<th>{{ 'Durée'|trans }}</th>
 			<th>{{ 'Pays'|trans }}</th>
-			<th>{{ 'ville'|trans }}</th>
-			<th>{{ 'Autre Villes'|trans }}</th>
+			<th>{{ 'Ville'|trans }}</th>
+			<th>{{ 'Pays Tiers'|trans }}</th>
+			<th>{{ 'Justification Tiers'|trans }}</th>
 			<th>{{ 'Justification de la durée'|trans }}</th>
 			<th>{{ 'Statut'|trans }}</th>
 			<th>{{ 'actions'|trans }}</th>
@@ -69,18 +70,72 @@
 
 
 				<td>
-					{% for country in manifestation.countries %}
-						{{ country.nom |trans }}
-
+					{% for manif in manifestation.communes%}
+						{% if manif != null %}
+							{{ "France" }}
+						{% else %}
+							{{ "N/A" }}
+						{% endif %}
 					{% endfor %}
+					{% for manifestation in manifestation.staedte %}
+						{% if manifestation %}
+							{{ "Allemagne" }}
+						{% else %}
+							{{ "N/A" }}
+						{% endif %}
+					{% endfor %}
+				</td>
+
+				<td>
+					{% set hasCommunes = false %}
+					{% for commune in manifestation.communes %}
+						{% if commune %}
+							{{ commune }}
+							{% set hasCommunes = true %}
+						{% endif %}
+					{% endfor %}
+
+					{% if not hasCommunes %}
+						N/A
+					{% endif %}
+
+					{% set hasStaedte = false %}
+					{% for stadt in manifestation.staedte %}
+						{% if stadt %}
+							{{ stadt }}
+							{% set hasStaedte = true %}
+						{% endif %}
+					{% endfor %}
+
+					{% if not hasStaedte %}
+						N/A
+					{% endif %}
+				</td>
+
+
+				<td>
+					{% if manifestation.countries %}
+						{{ manifestation.countries|join(', ') }}</td>
+				{% else %}
+					N/A
+				{% endif %}
+
+				<td>
+					{% if manifestation.justificationPaysTiers %}
+						{{ manifestation.justificationPaysTiers }}
+					{% else %}
+						N/A
+					{% endif %}
 				</td>
 				<td>
-					{% for city in manifestation.ville %}
-						{{ city.nom }}
-					{% endfor %}
+					{% if manifestation.justificationDuree %}
+						{{ manifestation.justificationDuree }}
+					{% else %}
+						N/A
+					{% endif %}
 				</td>
-				<td>{{ manifestation.autreVille }}</td>
-				<td>{{ manifestation.justificationDuree }}</td>
+
+
 				<td>
 					{% for statut in manifestation.statuses %}
 						{% if statut.nom == 'En attente' %}
@@ -161,27 +216,4 @@
 </div>
 
 
-<script>// Récupérez tous les boutons de demande d'annulation
-var buttons = document.querySelectorAll('.annuler-manifestation');
-
-buttons.forEach(function (button) {
-button.addEventListener('click', function (event) {
-event.preventDefault();
-var id = this.getAttribute('data-id');
-
-// Affichez une popup de confirmation
-var confirmation = confirm("Voulez-vous vraiment annuler cette manifestation ?");
-
-if (confirmation) { // Envoyez une requête AJAX pour enregistrer la demande d'annulation
-var xhr = new XMLHttpRequest();
-xhr.open('POST', '/manifestation/annulation/' + id, true);
-xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-xhr.onreadystatechange = function () {
-if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) { // Affichez un message de confirmation à l'utilisateur
-alert("Demande d'annulation soumise avec succès.");
-}
-};
-xhr.send();
-}
-});
-});</script>{% endblock %}
+{% endblock %}

@@ -19,6 +19,10 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use App\Entity\Departement;
+use App\Repository\RegionRepository;
+use App\Entity\Staedte;
+use App\Repository\StaedteRepository;
+
 
 
 
@@ -86,24 +90,39 @@ class ManifestationType extends AbstractType
 
                 ]
             )
+            ->add('justification_pays_tiers', TextareaType::class, [
+                'attr' => [
+                    'rows' => 5,
+                    'cols' => 33,
+                    'id' => "justification_pays_tiers"
+                ],
+                'required' => false
+            ])
             ->add('region', EntityType::class, [
                 'class' => Region::class,
                 'choice_label' => 'nom',
-                'placeholder' => 'Choisir une région',
+                'placeholder' => 'Choisir une région ou plusieurs régions',
                 'required' => false,
                 'mapped' => false,
-                'autocomplete' => true
+                'autocomplete' => true,
+                'multiple' => true,
+                'query_builder' => function (RegionRepository $er) {
+                    return $er->createQueryBuilder('region')
+                        ->orderBy('region.nom', 'ASC');
+                }
             ])
-            ->add('departement', EntityType::class, [
-                'class' => Departement::class,
-                'choice_label' => 'nom',
-                'placeholder' => 'Choisir un département',
-                'required' => false,
-                'mapped' => false,
-                'autocomplete' => true
 
-            ])
-            ->add('commune', CommuneAutocompleteField::class);
+            ->add('communes', CommuneAutocompleteField::class)
+            ->add('staedte', EntityType::class, [
+                'class' => Staedte::class,
+                'choice_label' => 'nom',
+                'multiple' => true,
+                'autocomplete' => true,
+                'query_builder' => function (StaedteRepository $er) {
+                    return $er->createQueryBuilder('staedte')
+                        ->orderBy('staedte.nom', 'ASC');
+                },
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

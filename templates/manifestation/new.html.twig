@@ -67,27 +67,28 @@
 					</div>
 
 					<hr>
-					<legend>Localisation France</legend>
+					<legend>Choix des Regions</legend>
 					<div class="form-group">
 						<label>
 							Région
 						</label>
 						{{ form_widget(form.region) }}
 					</div>
-					<div class="form-group">
-						<label>
-							Département
-						</label>
-						{{ form_widget(form.departement) }}
-					</div>
-					<div class="form-group">
-						<label>
-							Ville
-						</label>
-						{{ form_widget(form.commune) }}
-					</div>
 					<hr>
-					<legend>Localisation Allemagne</legend>
+					<legend>Localisation France et Allemagne</legend>
+					<div class="form-group">
+						<label>
+							Ville France
+						</label>
+						{{ form_widget(form.communes) }}
+					</div>
+
+					<div class="form-group">
+						<label>
+							Ville Allemagne
+						</label>
+						{{ form_widget(form.staedte) }}
+					</div>
 
 					<fieldset>
 						<legend>Choix Pays Tiers</legend>
@@ -97,6 +98,14 @@
 							</label>
 							{{ form_widget(form.countries) }}
 						</div>
+						<div class="form-group" id="justification_pays_tiers">
+							<label for="{{ form.justification_pays_tiers.vars.id }}">
+								Justification Pays Tiers
+							</label>
+							{{ form_widget(form.justification_pays_tiers, {'attr': {'class': 'form-control'}}) }}
+						</div>
+
+
 					</fieldset>
 					<hr>
 					<div class="form-group mt-4">
@@ -109,77 +118,5 @@
 		</div>
 
 	</form>
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-var regionField = document.querySelector('#manifestation_region');
-var departementField = document.querySelector('#manifestation_departement');
-regionField.addEventListener('change', function () {
-var selectedRegion = this.value;
-console.log(selectedRegion);
-fetchDepartements(selectedRegion);
-
-
-});
-
-departementField.addEventListener('change', function () {
-var selectedDepartement = this.value;
-fetchCommunes(selectedDepartement);
-});
-
-function fetchDepartements(selectedRegion) {
-fetch('/api/regions/' + selectedRegion + '/departements').then(response => {
-if (!response.ok) {
-throw new Error('Erreur de réseau');
-}
-return response.json();
-}).then(data => {
-departementField.innerHTML = '';
-data.forEach(function (departement) {
-var option = document.createElement('option');
-option.value = departement.id;
-option.textContent = departement.nom;
-departementField.appendChild(option);
-});
-}).catch(error => console.error('Erreur lors de la récupération des départements:', error));
-}
-
-function fetchCommunes(selectedDepartement) {
-fetch('/api/departements/' + selectedDepartement + '/villes').then(response => {
-if (!response.ok) {
-throw new Error('Erreur de réseau');
-}
-return response.json();
-}).then(data => {
-var communeSelect = document.querySelector('#manifestation_commune');
-communeSelect.innerHTML = '';
-data.forEach(function (commune) {
-var option = document.createElement('option');
-option.value = commune.id;
-option.textContent = commune.nom;
-communeSelect.appendChild(option);
-});
-}).catch(error => console.error('Erreur lors de la récupération des communes:', error));
-}
-
-var dateDebutInput = document.querySelector('#manifestation_date_debut');
-var dateFinInput = document.querySelector('#manifestation_date_fin');
-var dureeInput = document.querySelector('#manifestation_duree');
-var justificationDureeInput = document.querySelector('#manifestation_justification_duree');
-
-dateFinInput.addEventListener('change', function () {
-var dateDebut = new Date(dateDebutInput.value);
-var dateFin = new Date(dateFinInput.value);
-var difference = dateFin - dateDebut;
-var jours = difference / (1000 * 60 * 60 * 24);
-dureeInput.value = jours;
-if (jours > 20) {
-justificationDureeInput.style.display = 'block';
-} else {
-justificationDureeInput.style.display = 'none';
-}
-});
-});
-	</script>
-
 
 {% endblock %}

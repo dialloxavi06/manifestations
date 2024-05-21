@@ -44,10 +44,11 @@ class ManifestationController extends AbstractController
         EntityManagerInterface $entityManager,
     ): Response {
         $manifestation = new Manifestation();
-        // Ajouter le statut par défaut en utilisant la méthode addStatuses
+
         $defaultStatus = $entityManager->getRepository(Status::class)->findOneBy(['nom' => 'En cours d\'évaluation']);
         $form = $this->createForm(ManifestationType::class, $manifestation);
         $form->handleRequest($request);
+
         if ($form->isSubmitted() && $form->isValid()) {
             $manifestation->addStatus($defaultStatus);
             $manifestation->setDuree($manifestation->calculateDuration());

@@ -4,17 +4,17 @@ namespace App\Controller;
 
 use App\Repository\CommuneRepository;
 use App\Repository\DepartementRepository;
-use App\Repository\VilleRepository;
+use App\Repository\ApiRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 
-class VilleController extends AbstractController
+class ApiController extends AbstractController
 {
     #[Route('/api/villes/{paysId}', name: 'api_villes', methods: ['GET'])]
-    public function index(VilleRepository $villeRepository, $paysId): Response
+    public function index(ApiRepository $villeRepository, $paysId): Response
     {
         // Utilisez le paramètre $paysId pour filtrer les villes
         $villes = $villeRepository->findBy(['countries' => $paysId]);

@@ -24,19 +24,21 @@ class Countries
     #[ORM\ManyToMany(targetEntity: Manifestation::class, mappedBy: 'countries')]
     private Collection $manifestations;
 
-    /**
-     * @var Collection<int, Ville>
-     */
-    #[ORM\OneToMany(mappedBy: 'countries', targetEntity: Ville::class)]
-    private Collection $villes;
+
 
     #[ORM\Column(length: 50)]
     private ?string $codeIso = null;
 
+    /**
+     * @var Collection<int, Staedte>
+     */
+    #[ORM\OneToMany(mappedBy: 'pays', targetEntity: Staedte::class)]
+    private Collection $staedtes;
+
     public function __construct()
     {
         $this->manifestations = new ArrayCollection();
-        $this->villes = new ArrayCollection();
+        $this->staedtes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -83,35 +85,7 @@ class Countries
         return $this;
     }
 
-    /**
-     * @return Collection<int, Ville>
-     */
-    public function getVilles(): Collection
-    {
-        return $this->villes;
-    }
 
-    public function addVille(Ville $ville): static
-    {
-        if (!$this->villes->contains($ville)) {
-            $this->villes->add($ville);
-            $ville->setCountries($this);
-        }
-
-        return $this;
-    }
-
-    public function removeVille(Ville $ville): static
-    {
-        if ($this->villes->removeElement($ville)) {
-            // set the owning side to null (unless already changed)
-            if ($ville->getCountries() === $this) {
-                $ville->setCountries(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getCodeIso(): ?string
     {
@@ -123,5 +97,40 @@ class Countries
         $this->codeIso = $codeIso;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Staedte>
+     */
+    public function getStaedtes(): Collection
+    {
+        return $this->staedtes;
+    }
+
+    public function addStaedte(Staedte $staedte): static
+    {
+        if (!$this->staedtes->contains($staedte)) {
+            $this->staedtes->add($staedte);
+            $staedte->setPays($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStaedte(Staedte $staedte): static
+    {
+        if ($this->staedtes->removeElement($staedte)) {
+            // set the owning side to null (unless already changed)
+            if ($staedte->getPays() === $this) {
+                $staedte->setPays(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->nom;
     }
 }
